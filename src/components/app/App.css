@@ -1,6 +1,7 @@
-.App {
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.app {
+  background-color: #202020;
+  min-height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-rows: max-content auto max-content;
 }

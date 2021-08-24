@@ -10,10 +10,10 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <Switch>
         <Route exact path="/">
-          <Header />
+          <Header/>
           <Main />
           <Footer />
         </Route>

@@ -1,8 +1,12 @@
+import Container from "../Container/Container";
+
 function Main() {
   return (
-    <div className="Main">
-      <p>Main Page</p>
-    </div >
+    <main className="main">
+      <Container className="main__content">
+        main
+      </Container>
+    </main >
   );
 }
 

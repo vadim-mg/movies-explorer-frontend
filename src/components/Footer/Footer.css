@@ -1,0 +1,20 @@
+@import url(./footer__content.css);
+@import url(./footer__link-item.css);
+@import url(./footer__link.css);
+@import url(./footer__links.css);
+@import url(./footer__text.css);
+@import url(./footer__copyright.css);
+.footer {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+@media screen and (min-width:576px) {
+  .footer {
+    font-size: 13px;
+    line-height: 15.73px;
+  }
+}

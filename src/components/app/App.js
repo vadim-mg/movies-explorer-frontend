@@ -3,13 +3,13 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          start
+      <header className="App">
+        <p className="App">
+        inter-regular
         </p>
 
       </header>
-    </div>
+    </div >
   );
 }
 

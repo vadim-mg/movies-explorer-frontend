@@ -2,7 +2,7 @@
   width: calc(100% - 2 * 14px);
   max-width: 1140px;
   margin: auto;
-  border: 0.1px solid blue;
+  /* border: 0.1px solid blue; */
 }
 
 @media screen and (min-width: 576px) {

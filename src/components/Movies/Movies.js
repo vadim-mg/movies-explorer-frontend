@@ -1,8 +1,14 @@
+import Header from "../Header/Header"
+import Footer from "../Footer/Footer"
 function Movies() {
   return (
-    <div className="Movies">
-      <p>Movies</p>
-    </div >
+    <>
+      <Header />
+      <main className="Movies">
+        <p>Movies</p>
+      </main >
+      <Footer />
+    </>
   );
 }
 

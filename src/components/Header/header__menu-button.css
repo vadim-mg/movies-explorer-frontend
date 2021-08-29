@@ -1,9 +1,0 @@
-.header__menu-button {
-  width: 40px;
-  height: 43px;
-  background: url("../../images/header/menu.svg");
-  /* border: none; */
-  border: 0.5px solid red;
-  padding: 0;
-  box-sizing: content-box;
-}

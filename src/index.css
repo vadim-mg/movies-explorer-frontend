@@ -1,23 +1,10 @@
 @import url(./vendor/normalize.css);
 @import url(./vendor/fonts.css);
-@import url(./components/Container/container.css);
-@import url(./components/AboutMe/aboutMe.css);
-@import url(./components/AboutProject/aboutProject.css);
-@import url(./components/App/app.css);
-@import url(./components/Footer/footer.css);
-@import url(./components/Header/header.css);
-@import url(./components/Login/login.css);
-@import url(./components/Main/main.css);
-@import url(./components/Movies/movies.css);
-@import url(./components/MoviesCard/moviesCard.css);
-@import url(./components/MoviesCardList/moviesCardList.css);
-@import url(./components/Navigation/navigation.css);
-@import url(./components/NavTab/navTab.css);
-@import url(./components/Portfolio/portfolio.css);
-@import url(./components/Preloader/preloader.css);
-@import url(./components/Profile/profile.css);
-@import url(./components/Promo/promo.css);
-@import url(./components/Register/register.css);
-@import url(./components/SavedMovies/savedMovies.css);
-@import url(./components/SearchForm/searchForm.css);
-@import url(./components/Techs/techs.css);
+
+/* брейкпоинт для отладки */
+@media screen and (min-width : 1280px) {
+  .index {
+    display: block;
+  }
+
+}

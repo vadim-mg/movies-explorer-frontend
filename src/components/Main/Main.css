@@ -2,29 +2,6 @@
   display: block;
 }
 
-.main__header {
-  background: #073042;
-  background-image: url(../../images/main/landing-logo.png);
-  background-repeat: no-repeat;
-  background-size: 248px;
-  background-position: center 140px;
-  /* border: 1px solid red; */
-  padding: 207px 0 246px;
-}
-
-.main__header-caption {
-  margin: 0 auto;
-  font-family: Inter;
-  font-weight: normal;
-  font-size: 31px;
-  line-height: 39px;
-  letter-spacing: -0.04em;
-  color: #FFFFFF;
-  text-align: center;
-  max-width: 528px;
-  word-break: break-word;
-}
-
 .main__content {}
 
 .main__content_bg_light {
@@ -44,16 +21,6 @@
 }
 
 @media screen and (min-width:576px) {
-  .main__header {
-    padding: 326px 0 343px;
-    background-size: 320px;
-    background-position: center 223px;
-  }
-  .main__header-caption {
-    font-size: 50px;
-    line-height: 58px;
-    max-width: 708px;
-  }
   .main__content-caption {
     font-size: 22px;
     line-height: 27px;
@@ -62,10 +29,6 @@
 }
 
 @media screen and (min-width: 992px) {
-  .main__header {
-    padding: 185px 0 224px;
-    background-position: center 81px;
-  }
   .main__content-caption {
     padding: 110px 0 24px;
   }

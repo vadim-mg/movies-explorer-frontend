@@ -1,6 +1,7 @@
 import './Main.css'
 import Container from "../Container/Container"
 import Header from "../Header/Header"
+import Promo from '../Promo/Promo'
 import NavTab from "../NavTab/NavTab"
 import AboutProject from "../AboutProject/AboutProject"
 import Techs from '../Techs/Techs'
@@ -21,15 +22,10 @@ function Main() {
 
   return (
     <>
-      <Header className="header_light" />
+      <Header additionalClassName="header_light" />
       <main className="main">
 
-        <section className="main__header">
-          <Container additionalClassName="container_full-screen">
-            <h1 className="main__header-caption">Учебный проект студента факультета Веб-разработки.</h1>
-          </Container>
-        </section>
-
+        <Promo />
         <NavTab />
 
         <section className="main__content">
@@ -39,7 +35,7 @@ function Main() {
           </Container>
         </section>
 
-        <section className="main__content_bg_light">
+        <section className="main__content main__content_bg_light">
           <Container>
             <h2 className="main__content-caption  main__content-caption_padding-top_sm">Технологии</h2>
             <Techs />

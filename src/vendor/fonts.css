@@ -6,7 +6,7 @@
   src: url("./fonts/Inter-Regular.woff2?v=3.19") format("woff2"), url("./fonts/Inter-Regular.woff?v=3.19") format("woff");
 }
 
-/* @font-face {
+@font-face {
   font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
@@ -31,9 +31,9 @@
 }
 
 @font-face {
-  font-family: 'SuisseIntl';
+  font-family: 'Suisse Intl';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
   src: url("./fonts/SuisseIntl-Regular.woff2?v=3.19") format("woff2"), url("./fonts/SuisseIntl-Regular.woff?v=3.19") format("woff");
-} */
+}

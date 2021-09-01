@@ -1,0 +1,113 @@
+.about-project {
+  padding: 60px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.about-project__article {
+  font-family: Inter;
+  font-style: normal;
+  color: #FFFFFF;
+}
+
+.about-project__caption {
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: normal;
+  letter-spacing: -0.04em;
+  margin: 0 0 16px;
+}
+
+.about-project__text {
+  font-size: 11px;
+  line-height: 16px;
+  margin: 0;
+}
+
+.about-project__plan {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 13px;
+  display: grid;
+  grid-template-columns: 35% 65%;
+  padding-top: 4px;
+}
+
+.about-project__plan-item {
+  padding: 11px;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.about-project__plan-item_text {
+  font-family: Suisse Intl;
+  color: #A0A0A0;
+  padding-top: 9px;
+}
+
+.about-project__plan-item_bg_green {
+  background: #3DDC84;
+}
+
+.about-project__plan-item_bg_gray {
+  background: #303030;
+}
+
+@media screen and (min-width: 756px) {
+  .about-project {
+    padding-top: 70px;
+    padding-bottom: 80px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 43px;
+  }
+  .about-project__article {
+    width: calc(100% / 2 - 28px);
+  }
+  .about-project__caption {
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 23px;
+  }
+  .about-project__text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .about-project__plan {
+    width: 100%;
+    padding-top: 49px;
+    grid-template-columns: 21% 79%;
+  }
+  .about-project__plan-item {
+    padding: 10px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+  .about-project__plan-item_text {
+    font-size: 14px;
+    line-height: 17px;
+    padding-top: 12px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .about-project {
+    gap: 47px;
+    padding-bottom: 90px;
+  }
+  .about-project__caption {
+    margin-bottom: 26px;
+  }
+  .about-project__text {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .about-project__plan {
+    width: 100%;
+    padding-top: 63px;
+    grid-template-columns: 20% 80%;
+  }
+}

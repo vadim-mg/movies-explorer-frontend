@@ -33,13 +33,13 @@
 
 .menu__item-link:hover {
   text-decoration: underline;
-  text-underline-offset: 6px;
+  text-underline-offset: 10px;
 }
 
 .menu__close-button {
   position: absolute;
-  right: 14px;
-  top: 14px;
+  right: 20px;
+  top: 13px;
   color: #FFFFFF;
   background: url(../../images/header/close-btn.svg);
   width: 25px;
@@ -76,9 +76,16 @@
 }
 
 @media screen and (min-width:576px) {
+  .menu__items {
+    padding-top: 160px;
+    gap: 28px;
+  }
+  .menu__item-link:hover {
+    text-underline-offset: 7px;
+  }
   .menu__close-button {
     right: 28px;
-    top: 28px;
+    top: 22px;
   }
 }
 

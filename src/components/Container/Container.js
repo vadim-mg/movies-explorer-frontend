@@ -1,12 +1,10 @@
 import './Container.css'
-function Container({ className = '', children }) {
-  const conainerClassName = `container ${className}`
+function Container({ additionalClassName = '', children }) {
   return (
-    <>
-      <div className={conainerClassName}>
-        {children}
-      </div>
-    </>)
+    <div className={`container ${additionalClassName}`}>
+      {children}
+    </div>
+  )
 }
 
 export default Container

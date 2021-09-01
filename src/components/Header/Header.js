@@ -9,7 +9,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import { breakPoints } from '../../utils/config'
 
 
-function Header({ className = 'header' }) {
+function Header({ className = '' }) {
   const currentUser = useContext(CurrentUserContext)
   const [menuState, setMenuState] = useState(menuStates.hidden)
   const currentWidth = useCurrentWidth()
@@ -32,25 +32,23 @@ function Header({ className = 'header' }) {
   }, [handleCloseMenu, currentWidth])
 
   return (
-    <header className={className}>
-      <Container className="header__content container" >
+    <header className={`header ${className}`}>
+      <Container additionalClassName="container_size_lg-on-sm header__content" >
 
         <Link to="/" className="header__link" target="_self" >
           <img className="header__logo" alt="логотип" src={logo} />
         </Link>
 
-        {
-          currentUser.loggedIn
-            ? <>
-              <Menu menuState={menuState} onCloseMenu={handleCloseMenu} />
-              <button className="header__show-menu-button" onClick={handleOpenMenu} />
-            </>
-            : <>
-              <div className="header__space"></div>
-              <Link to="/signup" className="header__link">Регистрация</Link>
-              <Link to="/signin" className="header__link header__link_green-btn">Войти</Link>
-            </>
-        }
+        {currentUser.loggedIn
+          ? <>
+            <Menu menuState={menuState} onCloseMenu={handleCloseMenu} />
+            <button className="header__show-menu-button" onClick={handleOpenMenu} />
+          </>
+          : <>
+            <div className="header__space"></div>
+            <Link to="/signup" className="header__link">Регистрация</Link>
+            <Link to="/signin" className="header__link header__link_green-btn">Войти</Link>
+          </>}
 
       </Container >
     </header >

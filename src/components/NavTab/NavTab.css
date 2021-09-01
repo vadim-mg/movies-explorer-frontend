@@ -1,0 +1,36 @@
+.nav-tab {
+  background: #272727;
+}
+
+.nav-tab__items {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  justify-content: center;
+  list-style: none;
+  padding: 25px 0;
+  margin: 0;
+}
+
+.nav-tab__item {
+  text-decoration-line: underline;
+  text-underline-offset: 2px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 16px;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+@media screen and (min-width: 576px) {
+  .nav-tab__items {
+    gap: 40px;
+    padding: 24px 0;
+  }
+  .nav-tab__item {
+    font-size: 13px;
+    line-height: 16px;
+  }
+}

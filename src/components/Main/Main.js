@@ -1,5 +1,11 @@
+import './Main.css'
 import Container from "../Container/Container"
 import Header from "../Header/Header"
+import NavTab from "../NavTab/NavTab"
+import AboutProject from "../AboutProject/AboutProject"
+import Techs from '../Techs/Techs'
+import AboutMe from '../AboutMe/AboutMe'
+import Portfolio from '../Portfolio/Portfolio'
 import Footer from "../Footer/Footer"
 import { useContext } from "react"
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
@@ -15,11 +21,44 @@ function Main() {
 
   return (
     <>
-      <Header className="header header_light"/>
+      <Header className="header_light" />
       <main className="main">
-        <Container className="main__content">
-          main
-        </Container>
+
+        <section className="main__header">
+          <Container additionalClassName="container_full-screen">
+            <h1 className="main__header-caption">Учебный проект студента факультета Веб-разработки.</h1>
+          </Container>
+        </section>
+
+        <NavTab />
+
+        <section className="main__content">
+          <Container>
+            <h2 className="main__content-caption">О проекте</h2>
+            <AboutProject />
+          </Container>
+        </section>
+
+        <section className="main__content_bg_light">
+          <Container>
+            <h2 className="main__content-caption  main__content-caption_padding-top_sm">Технологии</h2>
+            <Techs />
+          </Container>
+        </section>
+
+        <section className="main__content">
+          <Container additionalClassName="container_size_lg">
+            <h2 className="main__content-caption">Студент</h2>
+            <AboutMe />
+          </Container>
+        </section>
+
+        <section className="main__content">
+          <Container additionalClassName="container_size_lg">
+            <Portfolio />
+          </Container>
+        </section>
+
       </main >
       <Footer />
     </>

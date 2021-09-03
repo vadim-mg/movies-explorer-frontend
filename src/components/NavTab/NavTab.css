@@ -13,6 +13,10 @@
 }
 
 .nav-tab__item {
+  text-align: center;
+}
+
+.nav-tab__item-link {
   text-decoration-line: underline;
   text-underline-offset: 2px;
   font-family: Inter;
@@ -21,7 +25,6 @@
   font-size: 11px;
   line-height: 16px;
   color: #FFFFFF;
-  text-align: center;
 }
 
 @media screen and (min-width: 576px) {
@@ -29,7 +32,7 @@
     gap: 40px;
     padding: 24px 0;
   }
-  .nav-tab__item {
+  .nav-tab__item-link {
     font-size: 13px;
     line-height: 16px;
   }

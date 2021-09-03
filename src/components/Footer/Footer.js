@@ -4,7 +4,7 @@ import Container from '../Container/Container'
 function Footer() {
   return (
     <footer className="footer">
-      <Container additionalClassName="container_size_lg-on-sm">
+      <Container additionalContainerClass="container_size_lg">
         <p className="footer__text">Учебный проект Яндекс.Практикум х BeatFilm.</p>
         <div className="footer__content">
 

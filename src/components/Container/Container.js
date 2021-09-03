@@ -1,7 +1,7 @@
 import './Container.css'
-function Container({ additionalClassName = '', children }) {
+function Container({ additionalContainerClass = '', children }) {
   return (
-    <div className={`container ${additionalClassName}`}>
+    <div className={`container ${additionalContainerClass}`}>
       {children}
     </div>
   )

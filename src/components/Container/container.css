@@ -4,11 +4,11 @@
   margin: auto;
 }
 
-.container_full-screen {
+.container_size_full-screen {
   width: 100%;
 }
 
-.container_size_lg, .container_size_lg-on-sm {
+.container_size_lg {
   width: calc(100% - 2 * 14px);
 }
 
@@ -16,7 +16,7 @@
   .container {
     width: calc(100% - 2 * 50px);
   }
-  .container_lg, .container_size_lg-on-sm {
+  .container_size_lg {
     width: calc(100% - 2 * 30px);
   }
 }

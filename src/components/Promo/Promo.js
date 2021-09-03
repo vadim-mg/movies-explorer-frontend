@@ -1,13 +1,11 @@
 import './Promo.css'
-import Container from '../Container/Container'
+import Section from '../Section/Section';
 
-function Promo() {
+function Promo({ title }) {
   return (
-    <section className="promo">
-      <Container additionalClassName="container_full-screen">
-        <h1 className="promo__caption">Учебный проект студента факультета Веб-разработки.</h1>
-      </Container>
-    </section>
+    <Section additionalSectionClass="promo" additionalContainerClass="container_size_full-screen promo__content">
+      <h1 className="promo__caption">{title}</h1>
+    </Section>
   );
 }
 

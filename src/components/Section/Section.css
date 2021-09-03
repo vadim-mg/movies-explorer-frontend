@@ -1,0 +1,33 @@
+.section {
+  box-sizing: border-box;
+}
+
+.section_color_gray {
+  background: #272727;
+}
+
+.section__caption {
+  font-family: Inter;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+  border-bottom: 1px solid #DADADA;
+  padding: 70px 0 28px;
+  margin: 0;
+}
+
+@media screen and (min-width:576px) {
+  .section__caption {
+    font-size: 22px;
+    line-height: 27px;
+    padding: 90px 0 24px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .section__caption {
+    padding: 110px 0 24px;
+  }
+}

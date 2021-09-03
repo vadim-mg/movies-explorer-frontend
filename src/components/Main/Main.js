@@ -1,5 +1,5 @@
 import './Main.css'
-import Container from "../Container/Container"
+import Section from '../Section/Section'
 import Header from "../Header/Header"
 import Promo from '../Promo/Promo'
 import NavTab from "../NavTab/NavTab"
@@ -8,54 +8,65 @@ import Techs from '../Techs/Techs'
 import AboutMe from '../AboutMe/AboutMe'
 import Portfolio from '../Portfolio/Portfolio'
 import Footer from "../Footer/Footer"
-import { useContext } from "react"
+import { useContext, useRef } from "react"
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
-
 
 
 function Main() {
   const currentUser = useContext(CurrentUserContext)
+  const sectionAboutRef = useRef(null)
+  const sectionTechRef = useRef(null)
+  const sectionAboutMeRef = useRef(null)
+
 
   //Чтоб увидеть верску неавторизованного пользователя на главной.
-  //убрать на следющем этапе
-  currentUser.loggedIn = false;
+  //исчезнет на следющем этапе
+  currentUser.loggedIn = true;
 
   return (
     <>
-      <Header additionalClassName="header_light" />
+      <Header additionalContainerClass="header_bg_light" />
+
       <main className="main">
 
-        <Promo />
-        <NavTab />
+        <Promo title="Учебный проект студента факультета Веб-разработки." />
 
-        <section className="main__content">
-          <Container>
-            <h2 className="main__content-caption">О проекте</h2>
-            <AboutProject />
-          </Container>
-        </section>
+        <NavTab links={[
+          {
+            'id': 1,
+            'name': 'О проекте',
+            'linkRef': sectionAboutRef,
+          },
+          {
+            'id': 2,
+            'name': 'Tехнологии',
+            'linkRef': sectionTechRef,
+          },
+          {
+            'id': 3,
+            'name': 'Портфолио',
+            'linkRef': sectionAboutMeRef,
+          },
+        ]} />
 
-        <section className="main__content main__content_bg_light">
-          <Container>
-            <h2 className="main__content-caption  main__content-caption_padding-top_sm">Технологии</h2>
-            <Techs />
-          </Container>
-        </section>
+        <Section linkRef={sectionAboutRef} title="О проекте">
+          <AboutProject />
+        </Section>
 
-        <section className="main__content">
-          <Container additionalClassName="container_size_lg">
-            <h2 className="main__content-caption">Студент</h2>
-            <AboutMe />
-          </Container>
-        </section>
+        <Section linkRef={sectionTechRef} title="Технологии" additionalSectionClass="section_color_gray" >
+          <Techs />
+        </Section>
 
-        <section className="main__content">
-          <Container additionalClassName="container_size_lg">
-            <Portfolio />
-          </Container>
-        </section>
+        <Section linkRef={sectionAboutMeRef} title="Студент" additionalContainerClass="container_size_lg">
+          <AboutMe />
+        </Section>
+
+        <Section additionalContainerClass="container_size_lg">
+          <Portfolio />
+        </Section>
 
       </main >
+
       <Footer />
     </>
   );

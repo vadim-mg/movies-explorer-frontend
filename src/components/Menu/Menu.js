@@ -9,11 +9,11 @@ const menuStates = {
 
 function Menu({ onCloseMenu, menuState }) {
   const classModifier =
-    ` ${menuState === menuStates.popup_opened && 'menu__overlay_popup-opened'} ` +
-    ` ${menuState === menuStates.desktop && 'menu__overlay_desktop'} `
+    `${menuState === menuStates.popup_opened ? ' menu_popup-opened' : ''}` +
+    `${menuState === menuStates.desktop ? ' menu_desktop' : ''}`
   return (
-    <div className={`menu__overlay ${classModifier}`}>
-      <nav className="menu">
+    <div className={`menu ${classModifier}`}>
+      <nav className="menu__panel">
         <ul className="menu__items">
           <li className="menu__item menu__item_hidden-on-lg" >
             <Link to="/" className="menu__item-link" target="_self" onClick={onCloseMenu}>Главная</Link>

@@ -9,7 +9,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import { breakPoints } from '../../utils/config'
 
 
-function Header({ additionalClassName = '' }) {
+function Header({ additionalContainerClass = '' }) {
   const currentUser = useContext(CurrentUserContext)
   const [menuState, setMenuState] = useState(menuStates.hidden)
   const currentWidth = useCurrentWidth()
@@ -32,8 +32,8 @@ function Header({ additionalClassName = '' }) {
   }, [handleCloseMenu, currentWidth])
 
   return (
-    <header className={`header ${additionalClassName}`}>
-      <Container additionalClassName="container_size_lg-on-sm header__content" >
+    <header className={`header ${additionalContainerClass}`}>
+      <Container additionalContainerClass="container_size_lg header__content" >
 
         <Link to="/" className="header__link" target="_self" >
           <img className="header__logo" alt="логотип" src={logo} />

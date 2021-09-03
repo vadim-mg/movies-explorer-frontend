@@ -4,8 +4,11 @@
   background-repeat: no-repeat;
   background-size: 248px;
   background-position: center 140px;
-  /* border: 1px solid red; */
   padding: 207px 0 246px;
+}
+
+.promo__content {
+  box-sizing: border-box;
 }
 
 .promo__caption {

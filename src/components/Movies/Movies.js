@@ -6,7 +6,7 @@ function Movies() {
     <>
       <Header />
       <main className="Movies">
-        <Container className="main__content">
+        <Container>
           movies
         </Container>
       </main >

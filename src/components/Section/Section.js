@@ -5,7 +5,7 @@ function Section({ linkRef, title, children, additionalSectionClass = '', additi
   return (
     <section className={`section ${additionalSectionClass}`} ref={linkRef}>
       <Container additionalContainerClass={additionalContainerClass} >
-        {title && <h2 className="section__caption">{title}</h2>}
+        {title ? <h2 className="section__caption">{title}</h2> : ''}
         {children}
       </Container>
     </section>
@@ -13,3 +13,4 @@ function Section({ linkRef, title, children, additionalSectionClass = '', additi
 }
 
 export default Section
+

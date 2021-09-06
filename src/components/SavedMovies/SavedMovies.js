@@ -22,7 +22,7 @@ function SavedMovies() {
 
         {savedMovies ?
           <Section additionalContainerClass="container_size_xxl">
-            <MoviesCardList moviesList={savedMovies} saved={true} />
+            <MoviesCardList moviesList={savedMovies} saved="true" />
           </Section>
           : <Preloader />}
       </main >

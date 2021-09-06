@@ -1,6 +1,8 @@
 import "./Page404.css"
+import { useHistory } from "react-router-dom"
 
 const Page404 = () => {
+  let history = useHistory();
   return (
     <div className="page404">
       <main className="page404__content">
@@ -8,7 +10,8 @@ const Page404 = () => {
         <p className="page404__text">Страница не найдена</p>
       </main>
       <footer className="page404__footer">
-        <a className="page404__link">Назад</a>
+
+        <a className="page404__link" onClick={history.goBack}>Назад</a>
       </footer>
     </div>
   )

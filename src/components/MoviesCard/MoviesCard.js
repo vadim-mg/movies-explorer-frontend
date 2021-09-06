@@ -10,7 +10,7 @@ function MoviesCard({ card, saved }) {
     cardButtonText = !card.saved ? 'Сохранить' : ''
   }
   return (
-    <figure div className="movies-card" >
+    <figure className="movies-card" >
       <figcaption className="movies-card__caption">
         <h3 className="movies-card__name">{card.name}</h3>
         <p className="movies-card__time">{card.time}</p>

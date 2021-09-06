@@ -1,22 +1,26 @@
 .container {
   width: calc(100% - 2 * 18px);
   max-width: 1140px;
-  margin: auto;
+  margin: 0 auto;
 }
 
 .container_size_full-screen {
   width: 100%;
 }
 
-.container_size_lg {
+.container_size_xl {
   width: calc(100% - 2 * 14px);
+}
+
+.container_size_xxl {
+  width: calc(100% - 2 * 10px);
 }
 
 @media screen and (min-width: 576px) {
   .container {
     width: calc(100% - 2 * 50px);
   }
-  .container_size_lg {
+  .container_size_xl, .container_size_xxl {
     width: calc(100% - 2 * 30px);
   }
 }

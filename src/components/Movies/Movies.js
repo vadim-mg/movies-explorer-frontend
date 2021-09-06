@@ -6,11 +6,13 @@ import SearchForm from "../SearchForm/SearchForm"
 import MoviesCardList from "../MoviesCardList/MoviesCardList"
 import Preloader from "../Preloader/Preloader"
 import { useState } from "react"
+import { moviesCards } from "../../utils/constants"
+
 
 function Movies() {
 
   // eslint-disable-next-line no-unused-vars
-  const [movies, setMovies] = useState([])
+  const [movies, setMovies] = useState(moviesCards)
 
   return (
     <>
@@ -19,8 +21,8 @@ function Movies() {
         <SearchForm />
 
         {movies ?
-          <Section>
-            <MoviesCardList />
+          <Section additionalContainerClass="container_size_xxl">
+            <MoviesCardList moviesList={movies} />
           </Section>
           : <Preloader />}
       </main >

@@ -41,7 +41,7 @@
 
 .footer__text {
   color: #8B8B8B;
-  padding: 130px 0 20px;
+  padding: 160px 0 20px;
   border-bottom: 1px solid #424242;
   text-align: center;
   margin: 0;
@@ -69,6 +69,6 @@
 
 @media screen and (min-width:992px) {
   .footer__text {
-      padding: 184px 0 20px;
+      padding: 148px 0 20px;
   }
 }

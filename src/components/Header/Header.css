@@ -43,11 +43,9 @@
 
 .header__show-menu-button {
   width: 40px;
-  height: 40px;
-  background: url("../../images/header/menu.svg");
-  background-size: contain;
+  height: 43px;
+  background: url("../../images/header/menu_sm.svg");
   padding: 0;
-  box-sizing: content-box;
   border: 0;
 }
 
@@ -65,6 +63,11 @@
   .header__show-menu-button {
     width: 44px;
     height: 44px;
+  }
+  .header__show-menu-button {
+    width: 44px;
+    height: 44px;
+    background: url("../../images/header/menu.svg");
   }
 }
 

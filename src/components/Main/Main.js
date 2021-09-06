@@ -57,11 +57,11 @@ function Main() {
           <Techs />
         </Section>
 
-        <Section linkRef={sectionAboutMeRef} title="Студент" additionalContainerClass="container_size_lg">
+        <Section linkRef={sectionAboutMeRef} title="Студент" additionalContainerClass="container_size_xl">
           <AboutMe />
         </Section>
 
-        <Section additionalContainerClass="container_size_lg">
+        <Section additionalContainerClass="container_size_xl">
           <Portfolio />
         </Section>
 

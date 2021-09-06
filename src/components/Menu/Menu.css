@@ -127,7 +127,7 @@
   .menu__items {
     flex-direction: row;
     padding: 0 0 0 14px;
-    gap: 18px;
+    gap: 16px;
   }
   .menu__item {
     font-size: 13px;

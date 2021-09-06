@@ -33,7 +33,7 @@ function Header({ additionalContainerClass = '' }) {
 
   return (
     <header className={`header ${additionalContainerClass}`}>
-      <Container additionalContainerClass="container_size_lg header__content" >
+      <Container additionalContainerClass="container_size_xl header__content" >
 
         <Link to="/" className="header__link" target="_self" >
           <img className="header__logo" alt="логотип" src={logo} />

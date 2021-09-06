@@ -1,6 +1,6 @@
 .about-me {
   margin: auto;
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   text-align: center;
   color: #FFFFFF;
   padding: 60px 0;
@@ -49,7 +49,7 @@
 .about-me__link-item {}
 
 .about-me__link {
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;

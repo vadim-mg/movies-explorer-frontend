@@ -20,7 +20,7 @@
 }
 
 .movies-card__name {
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-weight: 500;
   font-size: 12px;
   line-height: 18px;
@@ -39,7 +39,7 @@
 }
 
 .movies-card__time {
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-weight: normal;
   font-size: 10px;
   line-height: 18px;
@@ -52,7 +52,7 @@
 .movies-card__button {
   background: #313131;
   border-radius: 30px;
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-weight: normal;
   font-size: 12px;
   line-height: 11px;

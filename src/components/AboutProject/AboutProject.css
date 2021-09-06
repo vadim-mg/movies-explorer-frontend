@@ -6,7 +6,7 @@
 }
 
 .about-project__article {
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-style: normal;
   color: #FFFFFF;
 }
@@ -26,7 +26,7 @@
 }
 
 .about-project__plan {
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 11px;
@@ -43,7 +43,7 @@
 }
 
 .about-project__plan-item_text {
-  font-family: Suisse Intl;
+  font-family: Suisse Intl, sans-serif;
   color: #A0A0A0;
   padding-top: 9px;
 }

@@ -1,8 +1,10 @@
+import Header from "../Header/Header";
 function Profile() {
   return (
-    <div className="Profile">
-      <p>Profile</p>
-    </div >
+    <>
+      <Header />
+      <main></main>
+    </>
   );
 }
 

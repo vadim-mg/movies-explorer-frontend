@@ -13,7 +13,7 @@
 }
 
 .page404__header {
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-weight: normal;
   font-size: 80px;
   line-height: 97px;
@@ -23,7 +23,7 @@
 }
 
 .page404__text {
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-weight: normal;
   font-size: 12px;
   line-height: 15px;
@@ -33,7 +33,7 @@
 }
 
 .page404__link {
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-weight: normal;
   font-size: 12px;
   line-height: 15px;

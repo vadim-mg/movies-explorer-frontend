@@ -41,7 +41,7 @@
 }
 
 .checkbox__label {
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-weight: normal;
   font-size: 11px;
   line-height: 18px;

@@ -19,7 +19,7 @@
 }
 
 .menu__item {
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
@@ -51,7 +51,7 @@
 .menu {}
 
 .menu__profile-link {
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;

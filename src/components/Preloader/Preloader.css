@@ -58,7 +58,8 @@
   width: 100px;
   height: 100px;
   position: absolute;
-  top: 0;
+  /* top: 0; */
+  top: calc(100% / 2 + 20px);
   left: 0;
   background: #202020;
   border-radius: 50px;

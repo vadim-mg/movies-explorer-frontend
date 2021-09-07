@@ -2,7 +2,7 @@ import './Header.css'
 import Container from '../Container/Container'
 import logo from '../../images/header/logo.svg'
 import { Navigation, navigationStates } from '../Navigation/Navigation'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useState, useEffect, useContext, useCallback } from 'react'
 import useCurrentWidth from '../../utils/useCurrentWidth'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
@@ -35,9 +35,9 @@ function Header({ additionalContainerClass = '' }) {
     <header className={`header ${additionalContainerClass}`}>
       <Container additionalContainerClass="container_size_xl header__content" >
 
-        <Link to="/" className="header__link" target="_self" >
+        <NavLink exact to="/" className="header__link" target="_self" activeClassName="header__link_active">
           <img className="header__logo" alt="логотип" src={logo} />
-        </Link>
+        </NavLink>
 
         {currentUser.loggedIn
           ? <>
@@ -46,8 +46,8 @@ function Header({ additionalContainerClass = '' }) {
           </>
           : <>
             <div className="header__space"></div>
-            <Link to="/signup" className="header__link">Регистрация</Link>
-            <Link to="/signin" className="header__link header__link_green-btn">Войти</Link>
+            <NavLink to="/signup" className="header__link">Регистрация</NavLink>
+            <NavLink to="/signin" className="header__link header__link_green-btn">Войти</NavLink>
           </>}
 
       </Container >

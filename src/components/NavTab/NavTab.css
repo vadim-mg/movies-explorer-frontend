@@ -26,6 +26,11 @@
   line-height: 16px;
   color: #FFFFFF;
 }
+.nav-tab__item-link:hover{
+  opacity: 0.7;
+  transition: 0.3s;
+  cursor: pointer;
+}
 
 @media screen and (min-width: 576px) {
   .nav-tab__items {

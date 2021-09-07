@@ -5,14 +5,18 @@ import Section from "../Section/Section"
 import SearchForm from "../SearchForm/SearchForm"
 import MoviesCardList from "../MoviesCardList/MoviesCardList"
 import Preloader from "../Preloader/Preloader"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { moviesCards } from "../../utils/constants"
 
 
 function Movies() {
 
-  // eslint-disable-next-line no-unused-vars
-  const [movies, setMovies] = useState(moviesCards)
+  const [movies, setMovies] = useState(null)
+
+  useEffect(() => {
+    setTimeout(() => { setMovies(moviesCards)}, 1000)
+
+  }, [movies])
 
   return (
     <>

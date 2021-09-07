@@ -1,5 +1,5 @@
 import './Navigation.css'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const navigationStates = {
   'hidden': 0,
@@ -16,18 +16,18 @@ function Navigation({ onCloseNavigation, navigationState }) {
       <nav className="navigation__panel">
         <ul className="navigation__items">
           <li className="navigation__item navigation__item_hidden-on-lg" >
-            <Link to="/" className="navigation__item-link" target="_self" onClick={onCloseNavigation}>Главная</Link>
+            <NavLink exact to="/" className="navigation__item-link" target="_self" onClick={onCloseNavigation} activeClassName="navigation__item-link_active">Главная</NavLink>
           </li>
           <li className="navigation__item" >
-            <Link to="/movies" className="navigation__item-link" target="_self" onClick={onCloseNavigation}>Фильмы</Link>
+            <NavLink to="/movies" className="navigation__item-link" target="_self" onClick={onCloseNavigation} activeClassName="navigation__item-link_active">Фильмы</NavLink>
           </li>
           <li className="navigation__item" >
-            <Link to="/saved-movies" className="navigation__item-link" target="_self" onClick={onCloseNavigation}>Сохранённые фильмы</Link>
+            <NavLink to="/saved-movies" className="navigation__item-link" target="_self" onClick={onCloseNavigation} activeClassName="navigation__item-link_active">Сохранённые фильмы</NavLink>
           </li>
         </ul>
-        <Link to="/profile" className="navigation__profile-link" target="_self">
+        <NavLink to="/profile" className="navigation__profile-link" target="_self" activeClassName="navigation__profile-link_active">
           <i className="navigation__profile-link-icon"></i>Аккаунт
-        </Link>
+        </NavLink>
         <button className="navigation__close-button" onClick={onCloseNavigation} />
       </nav>
     </div >

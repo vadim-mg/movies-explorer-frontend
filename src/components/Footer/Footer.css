@@ -41,6 +41,10 @@
   color: #FFFFFF;
   text-decoration: none;
 }
+.footer__link:hover{
+  opacity: 0.7;
+  transition: 0.3s;
+}
 
 .footer__link-item {}
 

@@ -32,8 +32,18 @@
 }
 
 .navigation__item-link:hover {
+  opacity: 0.7;
+  transition: 0.3s;
+}
+
+.navigation__item-link_active {
   text-decoration: underline;
   text-underline-offset: 10px;
+}
+
+.navigation__item-link_active:hover {
+  cursor: auto;
+  opacity: 1;
 }
 
 .navigation__close-button {
@@ -46,6 +56,11 @@
   height: 25px;
   padding: 0;
   border: none;
+}
+
+.navigation__close-button:hover {
+  opacity: 0.7;
+  transition: 0.3s;
 }
 
 .navigation {}
@@ -69,6 +84,16 @@
   text-decoration: none;
 }
 
+.navigation__profile-link:hover {
+  opacity: 0.7;
+  transition: 0.3s;
+}
+
+.navigation__profile-link_active {
+  cursor: auto;
+  opacity: 0.7;
+}
+
 .navigation__profile-link-icon::before {
   content: url(../../images/header/icon_account.svg);
   width: 12px;
@@ -80,9 +105,6 @@
   .navigation__items {
     padding-top: 160px;
     gap: 28px;
-  }
-  .navigation__item-link:hover {
-    text-underline-offset: 7px;
   }
   .navigation__close-button {
     right: 28px;

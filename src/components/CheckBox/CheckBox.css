@@ -13,6 +13,11 @@
   background: #a5a5a5;
   appearance: none;
 }
+.checkbox__input:hover{
+  opacity: 0.9;
+  transition: 0.3s;
+  cursor: pointer;
+}
 
 .checkbox__input::after {
   display: block;

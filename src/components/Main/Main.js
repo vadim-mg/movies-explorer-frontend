@@ -21,7 +21,7 @@ function Main() {
 
   //Чтоб увидеть верску неавторизованного пользователя на главной.
   //исчезнет на следющем этапе
-  currentUser.loggedIn = false;
+  currentUser.loggedIn = true;
 
   return (
     <>

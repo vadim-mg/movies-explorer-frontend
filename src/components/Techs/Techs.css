@@ -1,15 +1,15 @@
 .techs {
   margin: auto;
-  font-family: Inter, sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  text-align: center;
-  color: #FFFFFF;
   padding: 60px 0 70px;
+  text-align: center;
 }
 
 .techs__caption {
   margin: 0 0 24px;
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  color: #FFFFFF;
   font-size: 30px;
   line-height: 36px;
   font-weight: normal;
@@ -18,6 +18,10 @@
 
 .techs__text {
   margin: 0 0 50px;
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  color: #FFFFFF;
   font-size: 11px;
   line-height: 16px;
   letter-spacing: -0.04em;
@@ -29,21 +33,24 @@
   grid-gap: 10px;
   gap: 10px;
   justify-content: flex-start;
-  /* padding-top: 29px; */
   width: calc(2 * 84px + 10px);
   margin: auto;
 }
 
 .techs__block {
-  background: #303030;
-  border-radius: 10px;
-  font-size: 12px;
-  line-height: 15px;
-  letter-spacing: -0.04em;
+  box-sizing: border-box;
   width: 84px;
   height: 57px;
   padding: 20px 0;
-  box-sizing: border-box;
+  background: #303030;
+  border-radius: 10px;
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  color: #FFFFFF;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: -0.04em;
 }
 
 @media screen and (min-width:576px) {

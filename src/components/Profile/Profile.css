@@ -16,7 +16,6 @@
   display: grid;
   justify-content: center;
   align-items: center;
-  /* grid-template-columns: 38px 1fr; */
   grid-template-columns: 14px 1fr;
   grid-template-rows: 72px 25px 25px;
   padding: 0;
@@ -35,6 +34,7 @@
 
 .profile__caption {
   font-family: Inter, sans-serif;
+  font-style: normal;
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
@@ -47,6 +47,7 @@
 .profile__label {
   grid-column: 1/2;
   font-family: Inter, sans-serif;
+  font-style: normal;
   font-weight: 500;
   font-size: 11px;
   line-height: 13px;
@@ -56,6 +57,7 @@
 
 .profile__field {
   font-family: Inter, sans-serif;
+  font-style: normal;
   font-weight: normal;
   font-size: 11px;
   line-height: 13px;
@@ -77,7 +79,7 @@
 }
 
 .profile__field_error {
-  outline: red double 1px;
+  outline: #FF004C double 1px;
 }
 
 .profile__button {
@@ -107,6 +109,7 @@
 
 .profile__link {
   font-family: Inter, sans-serif;
+  font-style: normal;
   font-weight: normal;
   font-size: 12px;
   line-height: 15px;
@@ -133,6 +136,7 @@
 
 .profile__error {
   font-family: Inter;
+  font-style: normal;
   font-weight: normal;
   font-size: 11px;
   line-height: 13px;

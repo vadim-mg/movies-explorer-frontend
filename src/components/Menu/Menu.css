@@ -51,15 +51,8 @@
 .menu {}
 
 .menu__profile-link {
-  font-family: Inter, sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 16px;
-  color: #FFFFFF;
-  text-decoration: none;
-  border: 2px solid rgb(170 170 170 / 20%);
   box-sizing: border-box;
+  border: 2px solid rgb(170 170 170 / 20%);
   border-radius: 50px;
   width: 100px;
   min-width: 100px;
@@ -67,6 +60,13 @@
   padding: 5px 0 0;
   margin-bottom: 46px;
   text-align: center;
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #FFFFFF;
+  text-decoration: none;
 }
 
 .menu__profile-link-icon::before {

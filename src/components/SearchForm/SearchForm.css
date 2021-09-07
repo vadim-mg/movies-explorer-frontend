@@ -12,6 +12,7 @@
   border: none;
   padding: 13px 16px;
   font-family: Inter, sans-serif;
+  font-style: normal;
   font-weight: normal;
   font-size: 12px;
   line-height: 18px;
@@ -21,6 +22,7 @@
 
 .search-form__search-button {
   font-family: Inter, sans-serif;
+  font-style: normal;
   font-weight: 500;
   font-size: 12px;
   line-height: 18px;
@@ -55,7 +57,6 @@
     padding: 15px 21px;
   }
   .search-form__search-button {
-    /* font-size: 14px; */
     padding: 13px 17px;
   }
 }

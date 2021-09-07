@@ -1,8 +1,5 @@
 .about-me {
   margin: auto;
-  font-family: Inter, sans-serif;
-  text-align: center;
-  color: #FFFFFF;
   padding: 60px 0;
   text-align: left;
 }
@@ -16,25 +13,33 @@
 
 .about-me__name {
   margin: 36px 0 0;
+  font-family: Inter;
+  font-style: normal;
   font-weight: normal;
   font-size: 30px;
   line-height: 36px;
   letter-spacing: -0.04em;
+  color: #FFFFFF;
 }
 
 .about-me__info {
   margin: 20px 0 0;
+  font-family: Inter;
+  font-style: normal;
   font-weight: 500;
   font-size: 11px;
   line-height: 16px;
-  mix-blend-mode: normal;
+  color: #FFFFFF;
 }
 
 .about-me__text {
   margin: 20px 0 0;
+  font-family: Inter;
+  font-style: normal;
   font-weight: normal;
   font-size: 11px;
   line-height: 16px;
+  color: #FFFFFF;
   mix-blend-mode: normal;
 }
 
@@ -49,7 +54,7 @@
 .about-me__link-item {}
 
 .about-me__link {
-  font-family: Inter, sans-serif;
+  font-family: Inter;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -74,7 +79,7 @@
     line-height: 40px;
   }
   .about-me__info {
-    margin: 16px 0 0;
+    margin-top: 16px;
     font-size: 12px;
     line-height: 18px;
   }
@@ -112,6 +117,6 @@
     line-height: 22px;
   }
   .about-me__link-items {
-    padding: 98px 0 0;
+    padding-top: 98px;
   }
 }

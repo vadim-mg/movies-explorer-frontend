@@ -1,9 +1,4 @@
 .footer {
-  font-family: Inter, sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 15px;
   overflow: auto;
 }
 
@@ -15,6 +10,11 @@
 }
 
 .footer__copyright {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
   color: #8B8B8B;
 }
 
@@ -33,6 +33,11 @@
 }
 
 .footer__link {
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
   color: #FFFFFF;
   text-decoration: none;
 }
@@ -45,6 +50,11 @@
   border-bottom: 1px solid #424242;
   text-align: center;
   margin: 0;
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
 }
 
 @media screen and (min-width:576px) {
@@ -69,6 +79,6 @@
 
 @media screen and (min-width:992px) {
   .footer__text {
-      padding: 148px 0 20px;
+    padding: 148px 0 20px;
   }
 }

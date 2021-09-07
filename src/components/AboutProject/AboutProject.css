@@ -6,31 +6,31 @@
 }
 
 .about-project__article {
-  font-family: Inter, sans-serif;
-  font-style: normal;
-  color: #FFFFFF;
 }
 
 .about-project__caption {
+  margin: 0 0 16px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
   font-size: 18px;
   line-height: 22px;
-  font-weight: normal;
   letter-spacing: -0.04em;
-  margin: 0 0 16px;
+  color: #FFFFFF;
 }
 
 .about-project__text {
-  font-size: 11px;
-  line-height: 16px;
   margin: 0;
-}
-
-.about-project__plan {
-  font-family: Inter, sans-serif;
+  font-family: Inter;
   font-style: normal;
   font-weight: normal;
   font-size: 11px;
-  line-height: 13px;
+  line-height: 16px;
+  /* or 145% */
+  color: #FFFFFF;
+}
+
+.about-project__plan {
   display: grid;
   grid-template-columns: 35% 65%;
   padding-top: 4px;
@@ -38,22 +38,29 @@
 
 .about-project__plan-item {
   padding: 11px;
-  color: #FFFFFF;
   text-align: center;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 13px;
 }
 
 .about-project__plan-item_text {
-  font-family: Suisse Intl, sans-serif;
+  /*Suisse Intl - совпадаетс Inter при letter-spacing: -.02em;  */
+  letter-spacing: -.02em;
   color: #A0A0A0;
   padding-top: 9px;
 }
 
 .about-project__plan-item_bg_green {
   background: #3DDC84;
+  color: #000000;
 }
 
 .about-project__plan-item_bg_gray {
   background: #303030;
+  color: #FFFFFF;
 }
 
 @media screen and (min-width: 756px) {

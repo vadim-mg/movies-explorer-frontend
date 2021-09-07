@@ -7,13 +7,15 @@
 .page404__footer {
   padding-bottom: 30px;
   text-align: center;
+}
 
-}.page404__content {
+.page404__content {
   align-self: center;
 }
 
 .page404__header {
   font-family: Inter, sans-serif;
+  font-style: normal;
   font-weight: normal;
   font-size: 80px;
   line-height: 97px;
@@ -24,6 +26,7 @@
 
 .page404__text {
   font-family: Inter, sans-serif;
+  font-style: normal;
   font-weight: normal;
   font-size: 12px;
   line-height: 15px;
@@ -34,6 +37,7 @@
 
 .page404__link {
   font-family: Inter, sans-serif;
+  font-style: normal;
   font-weight: normal;
   font-size: 12px;
   line-height: 15px;

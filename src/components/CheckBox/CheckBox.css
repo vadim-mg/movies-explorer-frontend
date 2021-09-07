@@ -9,18 +9,18 @@
   height: 20px;
   padding: 2px;
   border: none;
-  background: #a5a5a5;
   border-radius: 20px;
+  background: #a5a5a5;
   appearance: none;
 }
 
 .checkbox__input::after {
-  background: #F5F5F5;
-  border-radius: 50%;
+  display: block;
   width: 16px;
   height: 16px;
-  display: block;
   content: '';
+  border-radius: 50%;
+  background: #F5F5F5;
 }
 
 .checkbox__input:checked {
@@ -36,12 +36,9 @@
   opacity: .6;
 }
 
-.checkbox__input:disabled:not(:checked)::after {
-  opacity: .6;
-}
-
 .checkbox__label {
   font-family: Inter, sans-serif;
+  font-style: normal;
   font-weight: normal;
   font-size: 11px;
   line-height: 18px;

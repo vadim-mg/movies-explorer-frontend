@@ -1,7 +1,7 @@
 import './Header.css'
 import Container from '../Container/Container'
 import logo from '../../images/header/logo.svg'
-import { Menu, menuStates } from '../Menu/Menu'
+import { Navigation, navigationStates } from '../Navigation/Navigation'
 import { Link } from 'react-router-dom'
 import { useState, useEffect, useContext, useCallback } from 'react'
 import useCurrentWidth from '../../utils/useCurrentWidth'
@@ -11,25 +11,25 @@ import { breakPoints } from '../../utils/config'
 
 function Header({ additionalContainerClass = '' }) {
   const currentUser = useContext(CurrentUserContext)
-  const [menuState, setMenuState] = useState(menuStates.hidden)
+  const [navigationState, setNavigationState] = useState(navigationStates.hidden)
   const currentWidth = useCurrentWidth()
 
-  const handleOpenMenu = () => setMenuState(currentWidth <= breakPoints.lg
-    ? menuStates.popup_opened
-    : menuStates.desktop)
+  const handleOpenNavigation = () => setNavigationState(currentWidth <= breakPoints.lg
+    ? navigationStates.popup_opened
+    : navigationStates.desktop)
 
-  const handleCloseMenu = useCallback(() =>
-    setMenuState(currentWidth <= breakPoints.lg
-      ? menuStates.hidden
-      : menuStates.desktop), [currentWidth])
+  const handleCloseNavigation = useCallback(() =>
+    setNavigationState(currentWidth <= breakPoints.lg
+      ? navigationStates.hidden
+      : navigationStates.desktop), [currentWidth])
 
 
   // если пользователь увеличивает ширину окна больше 992px, закрываем меню
   useEffect(() => {
     if (currentWidth > breakPoints.lg) {
-      handleCloseMenu()
+      handleCloseNavigation()
     }
-  }, [handleCloseMenu, currentWidth])
+  }, [handleCloseNavigation, currentWidth])
 
   return (
     <header className={`header ${additionalContainerClass}`}>
@@ -41,8 +41,8 @@ function Header({ additionalContainerClass = '' }) {
 
         {currentUser.loggedIn
           ? <>
-            <Menu menuState={menuState} onCloseMenu={handleCloseMenu} />
-            <button className="header__show-menu-button" onClick={handleOpenMenu} />
+            <Navigation navigationState={navigationState} onCloseNavigation={handleCloseNavigation} />
+            <button className="header__show-menu-button" onClick={handleOpenNavigation} />
           </>
           : <>
             <div className="header__space"></div>

@@ -3,6 +3,14 @@
   overflow: auto;
 }
 
+.header_empty {
+  height: 113px;
+  display: flex;
+  width: calc(100% - 2 * 30px);
+  max-width: 400px;
+  margin: auto;
+}
+
 .header_bg_light {
   background: #073042;
 }
@@ -12,6 +20,11 @@
   align-items: center;
   justify-content: space-between;
   gap: 14px;
+}
+
+.header__content_without-nav {
+  justify-content: center;
+  width: 100%;
 }
 
 .header__link {
@@ -60,8 +73,15 @@
 }
 
 @media screen and (min-width: 576px) {
+  .header_empty {
+    height: 254px;
+    align-items: flex-end;
+  }
   .header__content {
     gap: 31px;
+  }
+  .header__content_without-nav {
+    justify-content: start;
   }
   .header__link {
     font-size: 12px;
@@ -84,5 +104,8 @@
 @media screen and (min-width:993px) {
   .header__show-menu-button {
     display: none;
+  }
+  .header_empty {
+    height: 94px;
   }
 }

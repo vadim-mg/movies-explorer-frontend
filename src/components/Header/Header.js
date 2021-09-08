@@ -9,7 +9,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import { breakPoints } from '../../utils/config'
 
 
-function Header({ additionalContainerClass = '' }) {
+function Header({ additionalContainerClass = '', withoutNow }) {
   const currentUser = useContext(CurrentUserContext)
   const [navigationState, setNavigationState] = useState(navigationStates.hidden)
   const currentWidth = useCurrentWidth()
@@ -33,22 +33,27 @@ function Header({ additionalContainerClass = '' }) {
 
   return (
     <header className={`header ${additionalContainerClass}`}>
-      <Container additionalContainerClass="container_size_xl header__content" >
+      <Container additionalContainerClass={`container_size_xl header__content ${withoutNow ? 'header__content_without-nav' : ''}`} >
 
         <NavLink exact to="/" className="header__link" target="_self" activeClassName="header__link_active">
           <img className="header__logo" alt="логотип" src={logo} />
         </NavLink>
-
-        {currentUser.loggedIn
-          ? <>
-            <Navigation navigationState={navigationState} onCloseNavigation={handleCloseNavigation} />
-            <button className="header__show-menu-button" onClick={handleOpenNavigation} />
+        {!withoutNow &&
+          <>
+            {
+              currentUser.loggedIn
+                ? <>
+                  <Navigation navigationState={navigationState} onCloseNavigation={handleCloseNavigation} />
+                  <button className="header__show-menu-button" onClick={handleOpenNavigation} />
+                </>
+                : <>
+                  <div className="header__space"></div>
+                  <NavLink to="/signup" className="header__link">Регистрация</NavLink>
+                  <NavLink to="/signin" className="header__link header__link_green-btn">Войти</NavLink>
+                </>
+            }
           </>
-          : <>
-            <div className="header__space"></div>
-            <NavLink to="/signup" className="header__link">Регистрация</NavLink>
-            <NavLink to="/signin" className="header__link header__link_green-btn">Войти</NavLink>
-          </>}
+        }
 
       </Container >
     </header >

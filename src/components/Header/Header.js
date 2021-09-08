@@ -14,19 +14,19 @@ function Header({ additionalContainerClass = '' }) {
   const [navigationState, setNavigationState] = useState(navigationStates.hidden)
   const currentWidth = useCurrentWidth()
 
-  const handleOpenNavigation = () => setNavigationState(currentWidth <= breakPoints.lg
+  const handleOpenNavigation = () => setNavigationState(currentWidth <= breakPoints.lg.size
     ? navigationStates.popup_opened
     : navigationStates.desktop)
 
   const handleCloseNavigation = useCallback(() =>
-    setNavigationState(currentWidth <= breakPoints.lg
+    setNavigationState(currentWidth <= breakPoints.lg.size
       ? navigationStates.hidden
       : navigationStates.desktop), [currentWidth])
 
 
   // если пользователь увеличивает ширину окна больше 992px, закрываем меню
   useEffect(() => {
-    if (currentWidth > breakPoints.lg) {
+    if (currentWidth > breakPoints.lg.size) {
       handleCloseNavigation()
     }
   }, [handleCloseNavigation, currentWidth])

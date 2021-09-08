@@ -9,14 +9,22 @@ import { useState, useEffect } from "react"
 import { moviesCards } from "../../utils/constants"
 
 
+
+
+
 function Movies() {
 
-  const [movies, setMovies] = useState(null)
+  // eslint-disable-next-line no-unused-vars
+  const [movies, setMovies] = useState(moviesCards)
+
+  const [shownMovies, setShownMovies] = useState(null)
+
 
   useEffect(() => {
-    setTimeout(() => { setMovies(moviesCards)}, 1000)
+    // временная эмуляция загрузки
+     setTimeout(() => { setShownMovies(movies)}, 1000)
+  },[])
 
-  }, [movies])
 
   return (
     <>
@@ -24,9 +32,9 @@ function Movies() {
       <main className="movies">
         <SearchForm />
 
-        {movies ?
+        {shownMovies ?
           <Section additionalContainerClass="container_size_xxl">
-            <MoviesCardList moviesList={movies} />
+            <MoviesCardList moviesList={shownMovies} />
           </Section>
           : <Preloader />}
       </main >

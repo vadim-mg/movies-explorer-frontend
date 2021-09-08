@@ -41,23 +41,48 @@ const moviesCards = [
     'url': img1,
     'time': '270 минут',
   },
-]
 
-const savedMoviesCards = [
   {
-    'id': '8',
+    'id': '11',
     'name': 'В погоне за Бенкси',
     'url': img1,
     'time': '27 минут',
     'saved': 'true',
   },
   {
-    'id': '66',
+    'id': '12',
+    'name': 'В погоне за Бенкси',
+    'url': img3,
+    'time': '27 минут',
+    'saved': 'true',
+  },
+  {
+    'id': '13',
+    'name': 'В погоне за Бенкси',
+    'url': img2,
+    'time': '27 минут',
+    'saved': 'true',
+  },
+  {
+    'id': '14',
+    'name': 'В погоне за Бенкси',
+    'url': img2,
+    'time': '270 минут',
+    'saved': 'false',
+  },
+  {
+    'id': '15',
     'name': 'В погоне за Бенкси',
     'url': img3,
     'time': '27 минут',
   },
-
+  {
+    'id': '16',
+    'name': 'В погоне за Бенкси',
+    'url': img1,
+    'time': '270 минут',
+  },
 ]
 
-export { moviesCards, savedMoviesCards }
+
+export { moviesCards }

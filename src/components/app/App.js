@@ -48,7 +48,6 @@ function App() {
           <Route>
             <Page404 />
           </Route>
-          {/* <Redirect to="/page404" /> */}
         </Switch>
       </div >
     </CurrentUserContext.Provider >

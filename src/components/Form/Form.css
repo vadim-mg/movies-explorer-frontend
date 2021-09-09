@@ -159,7 +159,7 @@
 @media screen and (min-width: 576px) {
   .form {
     padding: 0 0 37px 0;
-    height: 505px;
+    max-height: 505px;
   }
   .form__fields {
     grid-template-rows: 92px 25px 25px;
@@ -186,7 +186,7 @@
 @media screen and (min-width: 992px) {
   .form {
     padding-top: 0;
-    height: 537px;
+    max-height: 537px;
   }
   .form__fields {
     grid-template-rows: 117px 25px 25px;

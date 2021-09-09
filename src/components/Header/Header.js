@@ -9,7 +9,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import { breakPoints } from '../../utils/config'
 
 
-function Header({ additionalContainerClass = '', withoutNow }) {
+function Header({ additionalContainerClass = '', withoutNav }) {
   const currentUser = useContext(CurrentUserContext)
   const [navigationState, setNavigationState] = useState(navigationStates.hidden)
   const currentWidth = useCurrentWidth()
@@ -33,12 +33,12 @@ function Header({ additionalContainerClass = '', withoutNow }) {
 
   return (
     <header className={`header ${additionalContainerClass}`}>
-      <Container additionalContainerClass={`container_size_xl header__content ${withoutNow ? 'header__content_without-nav' : ''}`} >
+      <Container additionalContainerClass={`container_size_xl header__content ${withoutNav ? 'header__content_without-nav' : ''}`} >
 
         <NavLink exact to="/" className="header__link" target="_self" activeClassName="header__link_active">
           <img className="header__logo" alt="логотип" src={logo} />
         </NavLink>
-        {!withoutNow &&
+        {!withoutNav &&
           <>
             {
               currentUser.loggedIn

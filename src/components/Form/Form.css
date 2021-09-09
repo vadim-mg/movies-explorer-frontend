@@ -94,7 +94,7 @@
 }
 
 .form__field_simple:focus-visible {
-  outline-offset: 13px;
+  outline-offset: 12px;
   margin-left: -13px;
 }
 
@@ -105,6 +105,8 @@
 
 .form__field_error {
   outline: #FF004C double 1px;
+  outline-offset: 12px;
+  margin-left: -13px;
 }
 
 .form__line {

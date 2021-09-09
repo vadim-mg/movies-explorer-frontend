@@ -1,4 +1,4 @@
-.auth-form {
+.form {
   display: grid;
   grid-template-rows: 1fr min-content min-content;
   grid-gap: 16px;
@@ -11,7 +11,7 @@
   max-width: 400px;
 }
 
-.auth-form__fields {
+.form__fields {
   border: none;
   display: flex;
   flex-direction: column;
@@ -21,7 +21,7 @@
   margin: 0;
 }
 
-.auth-form__caption {
+.form__caption {
   font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -34,7 +34,7 @@
   margin-bottom: 60px;
 }
 
-.auth-form__label {
+.form__label {
   font-family: Inter;
   font-style: normal;
   font-weight: normal;
@@ -46,7 +46,7 @@
   margin: 0;
 }
 
-.auth-form__field {
+.form__field {
   font-family: Inter;
   font-style: normal;
   font-weight: normal;
@@ -61,16 +61,16 @@
   padding: 15px;
 }
 
-.auth-form__field:-internal-autofill-selected {
+.form__field:-internal-autofill-selected {
   background: none!important;
   color: transparent!important;
 }
 
-.auth-form__field_error {
+.form__field_error {
   outline: #FF004C double 1px;
 }
 
-.auth-form__button {
+.form__button {
   background: #4285F4;
   border: none;
   border-radius: 3px;
@@ -86,25 +86,25 @@
   color: #FFFFFF;
 }
 
-.auth-form__button:disabled {
+.form__button:disabled {
   background: #F8F8F8;
   color: #C2C2C2;
 }
 
-.auth-form__button:hover {
+.form__button:hover {
   opacity: 0.8;
   transition: 0.5s;
   cursor: pointer;
 }
 
-.auth-form__link-container {
+.form__link-container {
   display: flex;
   justify-content: center;
   gap: 7px;
   margin: auto;
 }
 
-.auth-form__link {
+.form__link {
   font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: normal;
@@ -120,7 +120,7 @@
   margin: 0;
 }
 
-.auth-form__link-question {
+.form__link-question {
   margin: 0;
   font-family: Inter;
   font-style: normal;
@@ -131,22 +131,22 @@
   color: #8B8B8B;
 }
 
-.auth-form__link:hover {
+.form__link:hover {
   opacity: 0.7;
   transition: 0.5s;
   cursor: pointer;
 }
 
-.auth-form__link_color_red {
+.form__link_color_red {
   margin: 0 auto;
   color: #EE3465;
 }
 
-.auth-form__link_color_blue {
+.form__link_color_blue {
   color: #4285F4;
 }
 
-.auth-form__error {
+.form__error {
   font-family: Inter;
   font-style: normal;
   font-weight: normal;
@@ -157,38 +157,38 @@
 }
 
 @media screen and (min-width: 576px) {
-  .auth-form {
+  .form {
     padding: 0 0 37px 0;
     height: 505px;
   }
-  .auth-form__fields {
+  .form__fields {
     grid-template-rows: 92px 25px 25px;
   }
-  .auth-form__caption {
+  .form__caption {
     text-align: left;
     padding: 23px 3px 0;
     margin-bottom: 20px;
   }
-  .auth-form__link {
+  .form__link {
     font-size: 13px;
     line-height: 16px;
   }
-  .auth-form__button {
+  .form__button {
     font-size: 14px;
     line-height: 17px;
   }
-  .auth-form__link-question {
+  .form__link-question {
     font-size: 14px;
     line-height: 17px;
   }
 }
 
 @media screen and (min-width: 992px) {
-  .auth-form {
+  .form {
     padding-top: 0;
     height: 537px;
   }
-  .auth-form__fields {
+  .form__fields {
     grid-template-rows: 117px 25px 25px;
   }
 }

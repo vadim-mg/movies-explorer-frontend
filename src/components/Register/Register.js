@@ -1,31 +1,8 @@
 
 import "./Register.css"
-
-import { useState, useEffect } from "react"
-
-import AuthForm from "../AuthForm/AuthForm"
-
+import Form from "../Form/Form"
 
 function Register() {
-
-  const [formFieldsValues, setFormFieldsValues] = useState({ name: 'Виталий Тест', email: 'test@test.ru', password: '123456' })
-  const [formFieldsErrors, setFormFieldsErrors] = useState({ name: true, email: true, password: true })
-  const [isFormValid, setIsFormValid] = useState(true)
-
-  useEffect(() => {
-    if (Object.values(formFieldsErrors).some(i => i === false)) {
-      setIsFormValid(false)
-    } else {
-      setIsFormValid(true)
-    }
-  }, [formFieldsErrors])
-
-  const handleChange = event => {
-    const input = event.target
-    const { name, value } = input
-    setFormFieldsValues(prevState => ({ ...prevState, [name]: value }))
-    setFormFieldsErrors(prevState => ({ ...prevState, [name]: input.validity.valid }))
-  }
 
   const handleRegister = () => {
     // сделать логин на 3м этапе
@@ -33,19 +10,40 @@ function Register() {
   }
 
   return (
-    <AuthForm caption="Добро пожаловать!" onSubmit={handleRegister} isFormValid={isFormValid} submitButtonName="Зарегистрироваться" question="Уже зарегистрированы?" linkName="Войти" link="/signin">
-
-      <label className="auth-form__label" htmlFor="name">Имя</label>
-      <input className={`auth-form__field ${!formFieldsErrors.name ? 'auth-form__field_error' : ''}`} type="text" id="name" name="name" placeholder="Ваше имя" required minLength="2" maxLength="40" value={formFieldsValues.name} onChange={handleChange} />
-
-
-      <label className="auth-form__label" htmlFor="email">E-mail</label>
-      <input className={`auth-form__field ${!formFieldsErrors.email ? 'auth-form__field_error' : ''}`} type="email" id="email" name="email" placeholder="Ваш E-mail" required value={formFieldsValues.email} onChange={handleChange} />
-
-      <label className="auth-form__label" htmlFor="password">Пароль</label>
-      <input className={`auth-form__field ${!formFieldsErrors.password ? 'auth-form__field_error' : ''}`} type="password" id="password" name="password" placeholder="Ваш пароль" required minLength="6" value={formFieldsValues.password} onChange={handleChange} />
-
-    </AuthForm>
+    <Form
+      caption="Добро пожаловать!"
+      onSubmit={handleRegister}
+      submitButtonName="Зарегистрироваться"
+      question="Уже зарегистрированы?"
+      linkName="Войти"
+      link="/signin"
+      fields={[
+        {
+          name: 'name',
+          label: 'Имя',
+          type: 'text',
+          placeholder: 'Ваше имя',
+          value: 'Виталий Тест',
+          validParams: { required: true, minLength: "2", maxLength: "40" },
+        },
+        {
+          name: 'email',
+          label: 'E-mail',
+          type: 'email',
+          placeholder: 'Ваш E-mail',
+          value: 'test@test.ru',
+          validParams: { required: true },
+        },
+        {
+          name: 'password',
+          label: 'Пароль',
+          type: 'password',
+          placeholder: 'Ваш пароль',
+          value: '123456',
+          validParams: { required: true, minLength: "6" },
+        },
+      ]}>
+    </Form>
   );
 }
 

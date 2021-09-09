@@ -13,7 +13,7 @@
 
 .about-me__name {
   margin: 36px 0 0;
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 30px;
@@ -24,7 +24,7 @@
 
 .about-me__info {
   margin: 20px 0 0;
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 11px;
@@ -34,7 +34,7 @@
 
 .about-me__text {
   margin: 20px 0 0;
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 11px;
@@ -54,7 +54,7 @@
 .about-me__link-item {}
 
 .about-me__link {
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;

@@ -10,7 +10,7 @@
 
 .about-project__caption {
   margin: 0 0 16px;
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -21,7 +21,7 @@
 
 .about-project__text {
   margin: 0;
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 11px;
@@ -39,7 +39,7 @@
 .about-project__plan-item {
   padding: 11px;
   text-align: center;
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 11px;

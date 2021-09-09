@@ -6,7 +6,7 @@ import Profile from '../Profile/Profile'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
 import Page404 from '../Page404/Page404'
-import { Route, Switch, /* Redirect */ } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import { useState } from 'react'
 
@@ -15,7 +15,9 @@ function App() {
   // на этапе верстки, ставим по дефолту true чтоб увидеть интерфейс авторизованного пользователя
   // eslint-disable-next-line no-unused-vars
   const [currentUser, setCurrentUser] = useState({
-    loggedIn: false
+    loggedIn: true,
+    name: "Виталий",
+    email: "pochta@yandex.ru"
   });
 
 

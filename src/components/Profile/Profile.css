@@ -11,101 +11,11 @@
   max-width: 410px;
 }
 
-.profile__fields {
-  border: none;
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  grid-template-columns: 14px 1fr;
-  grid-template-rows: 72px 25px 25px;
-  padding: 0;
-  margin: 0;
-}
-
-.profile__line {
-  width: 100%;
-  grid-column: 1/3;
-  line-height: 1px;
-  height: 1px;
-  border: none;
-  background: #424242;
-  margin: 0;
-}
-
-.profile__caption {
-  font-family: Inter, sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 29px;
-  text-align: center;
-  color: #FFFFFF;
-  grid-column: 1/3;
-  width: 100%;
-}
-
-.profile__label {
-  grid-column: 1/2;
-  font-family: Inter, sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 11px;
-  line-height: 13px;
-  color: #FFFFFF;
-  white-space: nowrap;
-}
-
-.profile__field {
-  font-family: Inter, sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 11px;
-  line-height: 13px;
-  text-align: right;
-  color: #FFFFFF;
-  border: none;
-  background: none;
-  padding: 6px 0;
-}
-
-.profile__field:-internal-autofill-selected {
-  background: none!important;
-  color: transparent!important;
-}
-
-.profile__field:focus-visible {
-  outline-offset: 13px;
-  margin-left: -13px;
-}
-
-.profile__field_error {
-  outline: #FF004C double 1px;
-}
-
-.profile__button {
-  width: 100%;
-  max-width: 410px;
-  height: 45px;
-  background: #4285F4;
-  border-radius: 3px;
-  border: 0;
-  font-family: Inter, sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-  text-align: center;
-  color: #FFFFFF;
-}
-
-.profile__button:disabled {
-  background: #F8F8F8;
-  color: #C2C2C2;
-}
-
-.profile__button:hover {
-  opacity: 0.8;
-  transition: 0.5s;
-  cursor: pointer;
+.profile__links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 40px 10px;
 }
 
 .profile__link {
@@ -135,24 +45,10 @@
   color: #EE3465;
 }
 
-.profile__error {
-  font-family: Inter;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 11px;
-  line-height: 13px;
-  text-align: center;
-  color: #FF004C;
-}
-
 @media screen and (min-width: 576px) {
-  .profile {
-    margin: auto;
-    padding: 0 0 37px 0;
-    height: 449px;
-  }
-  .profile__fields {
-    grid-template-rows: 92px 25px 25px;
+  .profile__links {
+    padding: 0;
+    margin-bottom: auto;
   }
   .profile__link {
     font-size: 13px;
@@ -161,10 +57,6 @@
 }
 
 @media screen and (min-width: 992px) {
-  .profile {
-    padding: 0;
-    height: 480px;
-  }
   .profile__fields {
     grid-template-rows: 117px 25px 25px;
   }

@@ -74,7 +74,6 @@
 
 @media screen and (min-width: 576px) {
   .header_empty {
-    /* height: 254px; */
     align-items: flex-end;
   }
   .header__content {
@@ -104,8 +103,5 @@
 @media screen and (min-width:993px) {
   .header__show-menu-button {
     display: none;
-  }
-  .header_empty {
-    /* height: 94px; */
   }
 }

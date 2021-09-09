@@ -2,9 +2,9 @@ import "./Form.css"
 import { Link } from "react-router-dom"
 import { useState, useEffect, Fragment } from "react"
 
-function Form({ caption, onSubmit, submitButtonName, question, linkName, link, fields }) {
+function Form({ children, caption, onSubmit, submitButtonName, question, linkName, link, fields, isEditMode = true, simpleFormType = false }) {
 
-  const [formError, setFormError] = useState('Что-то пошло не так - тут ошибка по заданию будет появляться при получении ошибки от сервера')
+  const [formError, setFormError] = useState('')
 
   const [formFieldsValues, setFormFieldsValues] = useState(fields.reduce((acc, val) => {
     acc[val.name] = val.value
@@ -38,41 +38,65 @@ function Form({ caption, onSubmit, submitButtonName, question, linkName, link, f
     onSubmit()
     // сделать сохранение на 3м этапе
     // setFormError('')
-    setFormError('произошла какая-то ошибка')
+    setFormError('произошла какая-то ошибка - временно для проверки верстки')
   }
 
-  return (
-    <form className="form" autoComplete="off" noValidate>
-      <fieldset className="form__fields">
+  const formClassName = 'form' + (simpleFormType ? ' form_simple' : '')
+  const formFieldsClassName = 'form__fields' + (simpleFormType ? ' form__fields_simple' : '')
+  const formCaptionClassName = 'form__caption' + (simpleFormType ? ' form__caption_simple' : '')
+  const formLabelClassName = 'form__label' + (simpleFormType ? ' form__label_simple' : '')
+  const formFieldClassName = 'form__field' + (simpleFormType ? ' form__field_simple' : '')
+  const formFieldErrorClassName = 'form__field_error'
+  const formErrorClassName = 'form__error' + (simpleFormType ? ' form__error_simple' : '')
+  const formButtonClassName = 'form__button'
+  const formLinkContainerClassName = 'form__link-container'
+  const formLinkQuestionClassName = 'form__link-question'
+  const formLinkClassName = 'form__link form__link_color_blue'
 
-        <legend className="form__caption">{caption}</legend>
+
+  return (
+    <form className={formClassName} autoComplete="off" noValidate>
+      <fieldset className={formFieldsClassName}>
+
+        <legend className={formCaptionClassName}>{caption}</legend>
 
         {fields.map(field => (
-          <Fragment key={field.name}>
-            <label className="form__label" htmlFor={field.name}>{field.label}</label>
-            <input
-              className={`form__field ${!formFieldsErrors[field.name] ? 'form__field_error' : ''}`}
-              type={field.type}
-              id={field.name}
-              name={field.name}
-              placeholder={field.placeholder}
-              value={formFieldsValues[field.name]}
-              onChange={handleChange}
-              {...field.validParams}
-            />
-          </Fragment>
+          field.name !== 'line'
+            ? <Fragment key={field.name}>
+              <label className={formLabelClassName} htmlFor={field.name}>
+                {field.label}
+              </label>
+              <input
+                className={`${formFieldClassName} ${!formFieldsErrors[field.name] ? formFieldErrorClassName : ''}`}
+                type={field.type}
+                id={field.name}
+                name={field.name}
+                placeholder={field.placeholder}
+                value={formFieldsValues[field.name]}
+                onChange={handleChange}
+                disabled={!isEditMode}
+                {...field.validParams}
+              />
+              { }
+            </Fragment>
+            : <hr className="form__line" />
         ))}
 
-        <p className="form__error">{formError}</p>
+        <p className={formErrorClassName}>{formError}</p>
 
       </fieldset>
 
-      <button className="form__button" type="submit" onClick={handleSubmit} disabled={!isFormValid}>{submitButtonName}</button>
+      {submitButtonName &&
+        <button className={formButtonClassName} type="submit" onClick={handleSubmit} disabled={!isFormValid}>
+          {submitButtonName}
+        </button>}
 
-      <div className="form__link-container">
-        <p className="form__link-question">{question}</p>
-        <Link className="form__link form__link_color_blue" to={link}>{linkName}</Link>
-      </div>
+      {(question || linkName) &&
+        <div className={formLinkContainerClassName}>
+          <p className={formLinkQuestionClassName}>{question}</p>
+          <Link className={formLinkClassName} to={link}>{linkName}</Link>
+        </div>}
+      {children}
 
     </form>
   )

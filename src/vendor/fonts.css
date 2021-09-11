@@ -1,0 +1,40 @@
+/* font-weight: normal */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/Inter-Regular.woff2?v=3.19") format("woff2"), url("./fonts/Inter-Regular.woff?v=3.19") format("woff");
+}
+
+/* font-weight: medium */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./fonts/Inter-Medium.woff2?v=3.19") format("woff2"), url("./fonts/Inter-Medium.woff?v=3.19") format("woff");
+}
+
+/* font-weight: bold */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./fonts/Inter-Bold.woff2?v=3.19") format("woff2"), url("./fonts/Inter-Bold.woff?v=3.19") format("woff");
+}
+
+/*
+В макете он используется у двух незначительных элементов
+и выглядит также как Inter-Regular c letter-spacing: -.04em;
+поэтому заменил его на Inter-Regular c letter-spacing: -.04em;
+и отключил чтоб не грузить лишний шрифт ради двукх маленьких слов написанных 11м шрифтом.
+
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/SuisseIntl-Regular.woff2?v=3.19") format("woff2"), url("./fonts/SuisseIntl-Regular.woff?v=3.19") format("woff");
+} */

@@ -1,5 +1,5 @@
 // точки перелома макета. Не изменять без соотвествующих правок во всех CSS файлах!!!
-const breakPoints = {
+export const breakPoints = {
   // свойства
   //
   // 'size': - размер до которого действуют настройкии
@@ -30,7 +30,6 @@ const breakPoints = {
   },
 }
 
+export const moviesImageUrl = 'https://api.nomoreparties.co'
+export const moviesApiUrl = 'https://api.nomoreparties.co/beatfilm-movies'
 
-export {
-  breakPoints
-}

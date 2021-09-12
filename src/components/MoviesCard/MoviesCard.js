@@ -1,4 +1,5 @@
 import "./MoviesCard.css"
+import { moviesImageUrl } from "../../utils/config"
 
 function MoviesCard({ card, saved }) {
   let cardButtonClass, cardButtonText
@@ -9,13 +10,14 @@ function MoviesCard({ card, saved }) {
     cardButtonClass = `movies-card__button ${card.saved ? 'movies-card__button_bg_pink' : ''}`
     cardButtonText = !card.saved ? 'Сохранить' : ''
   }
+
   return (
     <figure className="movies-card" >
       <figcaption className="movies-card__caption">
-        <h3 className="movies-card__name">{card.name}</h3>
-        <p className="movies-card__time">{card.time}</p>
+        <a className="movies-card__name" href={card.trailerLink} target="blank">{card.nameRU}</a>
+        <p className="movies-card__time">{`${card.duration} минут`}</p>
       </figcaption>
-      <img className="movies-card__image" src={card.url} alt={card.name} />
+      <img className="movies-card__image" src={moviesImageUrl + card.image.url} alt={card.nameRu} />
       <button className={cardButtonClass}>{cardButtonText}</button>
     </figure>
   );

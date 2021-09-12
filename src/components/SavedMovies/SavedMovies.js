@@ -6,10 +6,11 @@ import SearchForm from "../SearchForm/SearchForm"
 import MoviesCardList from "../MoviesCardList/MoviesCardList"
 import Preloader from "../Preloader/Preloader"
 import { useState } from "react"
-import { moviesCards } from "../../utils/constants"
 
 
 function SavedMovies() {
+
+  const moviesCards = []
 
   // eslint-disable-next-line no-unused-vars
   const [savedMovies, setMovies] = useState(moviesCards.filter(item => item.saved))

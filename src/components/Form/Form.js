@@ -12,14 +12,17 @@ function Form({ children, caption, onSubmit, submitButtonName, question, linkNam
   }, {}))
 
   const [formFieldsErrors, setFormFieldsErrors] = useState(fields.reduce((acc, val) => {
-    acc[val.name] = true
+    acc[val.name] = {
+      valid: true,
+      test: ''
+    }
     return acc
   }, {}))
 
   const [isFormValid, setIsFormValid] = useState(true)
 
   useEffect(() => {
-    if (Object.values(formFieldsErrors).some(i => i === false)) {
+    if (Object.values(formFieldsErrors).some(i => i.valid === false)) {
       setIsFormValid(false)
     } else {
       setIsFormValid(true)
@@ -30,14 +33,18 @@ function Form({ children, caption, onSubmit, submitButtonName, question, linkNam
     const input = event.target
     const { name, value } = input
     setFormFieldsValues(prevState => ({ ...prevState, [name]: value }))
-    setFormFieldsErrors(prevState => ({ ...prevState, [name]: input.validity.valid }))
+    setFormFieldsErrors(prevState => ({
+      ...prevState, [name]: {
+        valid: input.validity.valid,
+        text: input.validationMessage,
+        patternMismatch: input.validity.patternMismatch
+      }
+    }))
   }
 
   const handleSubmit = event => {
     event.preventDefault()
     onSubmit()
-    // сделать сохранение на 3м этапе
-    // setFormError('')
     setFormError('произошла какая-то ошибка - временно для проверки верстки')
   }
 
@@ -47,6 +54,7 @@ function Form({ children, caption, onSubmit, submitButtonName, question, linkNam
   const formLabelClassName = 'form__label' + (simpleFormType ? ' form__label_simple' : '')
   const formFieldClassName = 'form__field' + (simpleFormType ? ' form__field_simple' : '')
   const formFieldErrorClassName = 'form__field_error'
+  const formFieldErrorTextClassName = 'form__field-error-text' + (simpleFormType ? ' form__field-error-text_simple' : '')
   const formErrorClassName = 'form__error' + (simpleFormType ? ' form__error_simple' : '')
   const formButtonClassName = 'form__button'
   const formLinkContainerClassName = 'form__link-container'
@@ -55,7 +63,7 @@ function Form({ children, caption, onSubmit, submitButtonName, question, linkNam
 
 
   return (
-    <form className={formClassName} autoComplete="off" noValidate>
+    <form className={formClassName} autoComplete="off" noValidate >
       <fieldset className={formFieldsClassName}>
 
         <legend className={formCaptionClassName}>{caption}</legend>
@@ -67,17 +75,26 @@ function Form({ children, caption, onSubmit, submitButtonName, question, linkNam
                 {field.label}
               </label>
               <input
-                className={`${formFieldClassName} ${!formFieldsErrors[field.name] ? formFieldErrorClassName : ''}`}
+                className={`${formFieldClassName} ${!formFieldsErrors[field.name].valid ? formFieldErrorClassName : ''}`}
                 type={field.type}
                 id={field.name}
                 name={field.name}
+                title={field.title}
                 placeholder={field.placeholder}
                 value={formFieldsValues[field.name]}
                 onChange={handleChange}
                 disabled={!isEditMode}
+                autoComplete="off"
                 {...field.validParams}
               />
-              { }
+              <p className={formFieldErrorTextClassName} >
+                {!formFieldsErrors[field.name].valid
+                  ? formFieldsErrors[field.name].text +
+                  (formFieldsErrors[field.name].patternMismatch
+                    ? (field.title ? ` (${field.title})` : '')
+                    : '')
+                  : <span>&nbsp;</span>}
+              </p>
             </Fragment>
             : <hr className="form__line" />
         ))}

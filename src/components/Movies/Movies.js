@@ -12,8 +12,11 @@ import { maxTimeOfShortMovie } from "../../utils/constants"
 
 function Movies() {
 
-  const [shownMovies, setShownMovies] = useState(JSON.parse(localStorage.getItem('movies')))
-  const [searchParams, setSearchParams] = useState(JSON.parse(localStorage.getItem('searchParams')))
+  const [shownMovies, setShownMovies] = useState(JSON.parse(localStorage.getItem('movies')) || [])
+  const [searchParams, setSearchParams] = useState(JSON.parse(localStorage.getItem('searchParams')) || {
+    searchText: '',
+    isShortFilm: false
+  })
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -49,13 +52,13 @@ function Movies() {
     <>
       <Header />
       <main className="movies">
-        <SearchForm onSearch={searchMovies} searchParams={searchParams}/>
+        <SearchForm onSearch={searchMovies} searchParams={searchParams} />
         {isLoading
           ? <Preloader />
           : <Section additionalContainerClass="container_size_xxl">
             {shownMovies &&
               <MoviesCardList moviesList={shownMovies} error={error} />
-              }
+            }
           </Section>
         }
       </main >

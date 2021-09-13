@@ -2,11 +2,11 @@
 import "./Register.css"
 import Header from "../Header/Header"
 import Form from "../Form/Form"
+import isEmail from 'validator/lib/isEmail';
 
 function Register() {
 
   const handleRegister = () => {
-    // сделать логин на 3м этапе
     console.log('Выполнена регистрация!!')
   }
 
@@ -26,23 +26,24 @@ function Register() {
             label: 'Имя',
             type: 'text',
             placeholder: 'Ваше имя',
-            value: 'Виталий Тест',
-            validParams: { required: true, minLength: "2", maxLength: "40" },
+            title: 'Имя может содержать латиницу, кириллицу, пробел или дефис',
+            value: '',
+            validParams: { required: true, minLength: "2", maxLength: "40", pattern: "[A-Za-zА-Яа-яЁё\\s\\-]*" },
           },
           {
             name: 'email',
             label: 'E-mail',
             type: 'email',
             placeholder: 'Ваш E-mail',
-            value: 'test@test.ru',
-            validParams: { required: true },
+            value: '',
+            validParams: { required: true, customValidator: (val) => isEmail(val) },
           },
           {
             name: 'password',
             label: 'Пароль',
             type: 'password',
             placeholder: 'Ваш пароль',
-            value: '123456',
+            value: '',
             validParams: { required: true, minLength: "6" },
           },
         ]}>

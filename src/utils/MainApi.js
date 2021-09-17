@@ -15,22 +15,32 @@ class MainApi {
    */
   _fetch(adress, error = 'Какая-то ошибка', method = 'GET', rest) {
     return fetch(
-      `${this._baseUrl} /${adress}`,
+      `${this._baseUrl}/${adress}`,
       {
         method: method,
         credentials: 'include',
-        headres: {
-          'Content-type': 'application/json'
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(rest)
       })
-      .then(res => res.ok
-        ? res.json()
-        : Promise.reject({
-          message: `[${error}] Ошибка запроса: ${res.url} ${res.status}`,
-          status: res.status,
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        }
+        if (res.status === 429) {
+          return Promise.reject({
+            message: 'Сервер перегружен, повторите попытку позже!',
+            status: res.status,
+          })
+        }
+        return res.text().then(text => { throw new Error(text) })
+      })
+      .catch(err => {
+        const textError = `${error} : ${JSON.parse(err.message).message}`
+        // console.log(`В запросе: /${adress} - ${textError} `)
+        return Promise.reject({
+          message: textError,
         })
-      )
+      })
   }
 
   // возвращает информацию о пользователе(email и имя)
@@ -79,13 +89,25 @@ class MainApi {
   }
 
   //	создаёт пользователя с переданными в теле данными
-  signUp(email, password) {
+  signUp(email, password, name) {
     return this._fetch(
       'signup',
       'Ошибка создания пользователя',
       'POST',
-      { email, password }
+      { email, password, name }
     )
+      .catch(err => {
+        switch (err.status) {
+          case 400:
+            err.message = "Не верно заполнено како-то поле"
+            break
+          case 409:
+            err.message = "Пользователь с таким e-mail уже существует"
+            break
+        }
+        return Promise.reject(err)
+      }
+      )
   }
 
   // ЛОгин -сохраняет JWT в куках, если в теле запроса переданы правильные почта и пароль

@@ -1,102 +1,93 @@
 import "./Form.css"
+import { useState, useEffect, useCallback, Fragment } from "react"
+import Field from "../Field/Field"
 import { Link } from "react-router-dom"
-import { useState, useEffect, Fragment } from "react"
 
-function Form({ children, caption, onSubmit, submitButtonName, question, linkName, link, fields, isEditMode = true, simpleFormType = false }) {
+function Form({ children, values, caption, onSubmit, submitButtonName, question, linkName, link, fields, isEditMode = true, simpleFormType = false }) {
 
+  const [formFields, setFormFields] = useState(values)
+  const [formFieldsErrors, setFormFieldsErrors] = useState(fields.reduce((acc, val) => ({ ...acc, [val.name]: { valid: true } })
+    , {}))
+  const [isFieldsChanged, setIsFieldsChanged] = useState(false)
+  const [isFormValid, setIsFormValid] = useState(false)
   const [formError, setFormError] = useState('')
 
-  const [formFieldsValues, setFormFieldsValues] = useState(fields.reduce((acc, val) => {
-    acc[val.name] = val.value
-    return acc
-  }, {}))
+  useEffect(() => {
+    return () => setFormFields({})
+  }, [])
 
-  const [formFieldsErrors, setFormFieldsErrors] = useState(fields.reduce((acc, val) => {
-    acc[val.name] = {
-      valid: true,
-      test: ''
-    }
-    return acc
-  }, {}))
+  useEffect(() => {
+    setFormFields(values)
+  }, [values])
 
-  const [isFormValid, setIsFormValid] = useState(true)
 
   useEffect(() => {
     if (Object.values(formFieldsErrors).some(i => i.valid === false)) {
       setIsFormValid(false)
+      return
     } else {
       setIsFormValid(true)
     }
-  }, [formFieldsErrors])
-
-  const handleChange = event => {
-    const input = event.target
-    const { name, value } = input
-    setFormFieldsValues(prevState => ({ ...prevState, [name]: value }))
-    setFormFieldsErrors(prevState => ({
-      ...prevState, [name]: {
-        valid: input.validity.valid,
-        text: input.validationMessage,
-        patternMismatch: input.validity.patternMismatch
+    for (let prop in values) {
+      if (formFields && formFields[prop] && formFields[prop] !== values[prop]) {
+        setIsFieldsChanged(true)
+        return
       }
-    }))
-  }
+    }
+    setIsFieldsChanged(false)
+
+  }, [formFields])
+
+
+  const setField = useCallback(
+    (name, value, valid) => {
+      setFormFields(prevState => ({ ...prevState, [name]: value }))
+      setFormFieldsErrors(prevState => ({ ...prevState, [name]: { valid: valid } }))
+    },
+    [setIsFormValid]
+  )
+
 
   const handleSubmit = event => {
     event.preventDefault()
-    onSubmit()
-    setFormError('произошла какая-то ошибка - временно для проверки верстки')
+    onSubmit(formFields)
+      .then(() => {
+        setFormError('')
+      })
+      .catch(err => {
+        setFormError(err.message)
+      })
   }
 
   const formClassName = 'form' + (simpleFormType ? ' form_simple' : '')
   const formFieldsClassName = 'form__fields' + (simpleFormType ? ' form__fields_simple' : '')
   const formCaptionClassName = 'form__caption' + (simpleFormType ? ' form__caption_simple' : '')
-  const formLabelClassName = 'form__label' + (simpleFormType ? ' form__label_simple' : '')
-  const formFieldClassName = 'form__field' + (simpleFormType ? ' form__field_simple' : '')
-  const formFieldErrorClassName = 'form__field_error'
-  const formFieldErrorTextClassName = 'form__field-error-text' + (simpleFormType ? ' form__field-error-text_simple' : '')
+  const formLineClassName = 'form__line' + (simpleFormType ? ' form__line_simple' : '')
   const formErrorClassName = 'form__error' + (simpleFormType ? ' form__error_simple' : '')
   const formButtonClassName = 'form__button'
   const formLinkContainerClassName = 'form__link-container'
   const formLinkQuestionClassName = 'form__link-question'
   const formLinkClassName = 'form__link form__link_color_blue'
 
-
   return (
-    <form className={formClassName} autoComplete="off" noValidate >
+    <form className={formClassName} autoComplete="off" noValidate onSubmit={handleSubmit}>
       <fieldset className={formFieldsClassName}>
 
         <legend className={formCaptionClassName}>{caption}</legend>
 
-        {fields.map(field => (
-          field.name !== 'line'
-            ? <Fragment key={field.name}>
-              <label className={formLabelClassName} htmlFor={field.name}>
-                {field.label}
-              </label>
-              <input
-                className={`${formFieldClassName} ${!formFieldsErrors[field.name].valid ? formFieldErrorClassName : ''}`}
-                type={field.type}
-                id={field.name}
-                name={field.name}
-                title={field.title}
-                placeholder={field.placeholder}
-                value={formFieldsValues[field.name]}
-                onChange={handleChange}
-                disabled={!isEditMode}
-                autoComplete="off"
-                {...field.validParams}
-              />
-              <p className={formFieldErrorTextClassName} >
-                {!formFieldsErrors[field.name].valid
-                  ? formFieldsErrors[field.name].text +
-                  (formFieldsErrors[field.name].patternMismatch
-                    ? (field.title ? ` (${field.title})` : '')
-                    : '')
-                  : <span>&nbsp;</span>}
-              </p>
-            </Fragment>
-            : <hr className="form__line" />
+        {fields.map((field, i) => (
+          <Fragment key={`${field.name}-${i}`}>
+
+            {/* для простой формы добавляем разделительную линию между полями */}
+            {(simpleFormType && i) ? <hr className={formLineClassName} /> : ''}
+            <Field
+              field={field}
+              value={values[field.name]}
+              isEditMode={isEditMode}
+              simpleFormType={simpleFormType}
+              onChange={setField} />
+
+          </Fragment>
         ))}
 
         <p className={formErrorClassName}>{formError}</p>
@@ -104,14 +95,14 @@ function Form({ children, caption, onSubmit, submitButtonName, question, linkNam
       </fieldset>
 
       {submitButtonName &&
-        <button className={formButtonClassName} type="submit" onClick={handleSubmit} disabled={!isFormValid}>
+        <button className={formButtonClassName} type="submit" disabled={!(isFormValid && isFieldsChanged)}>
           {submitButtonName}
         </button>}
 
       {(question || linkName) &&
         <div className={formLinkContainerClassName}>
           <p className={formLinkQuestionClassName}>{question}</p>
-          <Link className={formLinkClassName} to={link}>{linkName}</Link>
+          <Link type="button" className={formLinkClassName} to={link}>{linkName}</Link>
         </div>}
       {children}
 

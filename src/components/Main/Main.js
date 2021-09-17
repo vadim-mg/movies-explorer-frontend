@@ -8,20 +8,17 @@ import Techs from '../Techs/Techs'
 import AboutMe from '../AboutMe/AboutMe'
 import Portfolio from '../Portfolio/Portfolio'
 import Footer from "../Footer/Footer"
-import { useContext, useRef } from "react"
-import { CurrentUserContext } from '../../contexts/CurrentUserContext'
+import {useRef} from "react"
+// import { useContext, useRef } from "react"
+// import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 
 function Main() {
-  const currentUser = useContext(CurrentUserContext)
+  // const currentUser = useContext(CurrentUserContext)
   const sectionAboutRef = useRef(null)
   const sectionTechRef = useRef(null)
   const sectionAboutMeRef = useRef(null)
 
-
-  //Чтоб увидеть верску неавторизованного пользователя на главной.
-  //исчезнет на следющем этапе
-  currentUser.loggedIn = false;
 
   return (
     <>

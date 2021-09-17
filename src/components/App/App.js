@@ -6,21 +6,42 @@ import Profile from '../Profile/Profile'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
 import Page404 from '../Page404/Page404'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, useHistory } from 'react-router-dom'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import mainApi from '../../utils/MainApi'
+
+const notLoggedUser = {
+  loggedIn: false,
+  name: '',
+  email: ''
+}
 
 function App() {
 
-  // на этапе верстки, ставим по дефолту true чтоб увидеть интерфейс авторизованного пользователя
-  // eslint-disable-next-line no-unused-vars
-  const [currentUser, setCurrentUser] = useState({
-    loggedIn: true,
-    name: "Виталий",
-    email: "pochta@yandex.ru"
-  });
+  const history = useHistory()
+  const [currentUser, setCurrentUser] = useState(notLoggedUser);
 
 
+  const loadProfile = () => mainApi.getProfile()
+    .then(result => {
+      setCurrentUser({
+        loggedIn: true,
+        name: result.name,
+        email: result.email
+      })
+    })
+    .catch(() => setCurrentUser(notLoggedUser))
+
+  useEffect(() => loadProfile(), [])
+
+  const handlerChangeUser = (userData, route = '/') => {
+    setCurrentUser(prevState => userData ? ({ ...prevState, ...userData }) : notLoggedUser)
+    if (userData && userData.loggedIn && !userData.name) {
+      loadProfile()
+    }
+    history.push(route)
+  }
 
 
   return (
@@ -37,15 +58,15 @@ function App() {
             <SavedMovies />
           </Route>
           <Route path="/profile">
-            <Profile />
+            <Profile onProfileUpdate={handlerChangeUser} />
           </Route>
 
 
           <Route path="/signup">
-            <Register />
+            <Register onRegister={handlerChangeUser} />
           </Route>
           <Route path="/signin">
-            <Login />
+            <Login onLogin={handlerChangeUser} />
           </Route>
           <Route>
             <Page404 />

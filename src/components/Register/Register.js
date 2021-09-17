@@ -3,11 +3,18 @@ import "./Register.css"
 import Header from "../Header/Header"
 import Form from "../Form/Form"
 import isEmail from 'validator/lib/isEmail';
+import mainApi from "../../utils/MainApi";
 
-function Register() {
+function Register({ onRegister }) {
 
-  const handleRegister = () => {
-    console.log('Выполнена регистрация!!')
+  const handleRegister = (data) => {
+    const { email, password, name } = data
+    return mainApi
+      .signUp(email, password, name)
+      .then(() => mainApi.signIn(email, password))
+      .then(() => onRegister({ email, name, 'loggedIn': true }, '/movies'))
+
+    //cath есть в форме, откуда вызывается handleRegister
   }
 
   return (
@@ -20,6 +27,11 @@ function Register() {
         question="Уже зарегистрированы?"
         linkName="Войти"
         link="/signin"
+        values={{
+          name: '',
+          email: '',
+          password: ''
+        }}
         fields={[
           {
             name: 'name',
@@ -27,7 +39,6 @@ function Register() {
             type: 'text',
             placeholder: 'Ваше имя',
             title: 'Имя может содержать латиницу, кириллицу, пробел или дефис',
-            value: '',
             validParams: { required: true, minLength: "2", maxLength: "40", pattern: "[A-Za-zА-Яа-яЁё\\s\\-]*" },
           },
           {
@@ -35,15 +46,15 @@ function Register() {
             label: 'E-mail',
             type: 'email',
             placeholder: 'Ваш E-mail',
-            value: '',
-            validParams: { required: true, customValidator: (val) => isEmail(val) },
+            validParams: { required: true },
+            customvalidator: (val) => isEmail(val),
+            title: 'Поле Email должно быть заполнено корректно.',
           },
           {
             name: 'password',
             label: 'Пароль',
             type: 'password',
             placeholder: 'Ваш пароль',
-            value: '',
             validParams: { required: true, minLength: "6" },
           },
         ]}>

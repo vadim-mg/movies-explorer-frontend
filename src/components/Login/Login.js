@@ -2,13 +2,19 @@
 import "./Login.css"
 import Header from "../Header/Header"
 import Form from "../Form/Form"
+import mainApi from "../../utils/MainApi"
 
-function Login() {
+function Login({ onLogin }) {
 
-  const handleLogin = () => {
-    // сделать логин на 3м этапе
-    console.log('Выполнена авторизация!!')
+  const handleLogin = (data) => {
+    const { email, password } = data
+    return mainApi
+      .signIn(email, password)
+      .then(() => onLogin({ email, 'loggedIn': true }, '/movies'))
+
+    //cath есть в форме, откуда вызывается handleLogin
   }
+
 
   return (
     <>
@@ -20,13 +26,16 @@ function Login() {
         question="Еще не зарегистрированы?"
         linkName="Регистрация"
         link="/signup"
+        values={{
+          email: '',
+          password: '',
+        }}
         fields={[
           {
             name: 'email',
             label: 'E-mail',
-            type: 'email',
+            // type: 'email', //вроде как не уместная тут валидация
             placeholder: 'Ваш E-mail',
-            value: 'test@test.ru',
             validParams: { required: true },
           },
           {
@@ -34,7 +43,6 @@ function Login() {
             label: 'Пароль',
             type: 'password',
             placeholder: 'Ваш пароль',
-            value: '123456',
             validParams: { required: true },
           },
         ]}>

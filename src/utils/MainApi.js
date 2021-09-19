@@ -35,11 +35,12 @@ class MainApi {
         return res.text().then(text => { throw new Error(text) })
       })
       .catch(err => {
-        const textError = `${error} : ${JSON.parse(err.message).message}`
+        if (err.message === 'Failed to fetch') {
+          err.message = 'Сервер не доступен'
+        }
+        const textError = `${error} : ${err.message || JSON.parse(err.message).message}`
         // console.log(`В запросе: /${adress} - ${textError} `)
-        return Promise.reject({
-          message: textError,
-        })
+        return Promise.reject({ message: textError })
       })
   }
 

@@ -34,7 +34,7 @@ function Login({ onLogin }) {
           {
             name: 'email',
             label: 'E-mail',
-            // type: 'email', //вроде как не уместная тут валидация
+            type: 'email',
             placeholder: 'Ваш E-mail',
             validParams: { required: true },
           },

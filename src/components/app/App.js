@@ -10,6 +10,7 @@ import { Route, Switch, useHistory } from 'react-router-dom'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import { useState, useEffect } from 'react'
 import mainApi from '../../utils/MainApi'
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 const notLoggedUser = {
   loggedIn: false,
@@ -20,20 +21,19 @@ const notLoggedUser = {
 function App() {
 
   const history = useHistory()
-  const [currentUser, setCurrentUser] = useState(notLoggedUser);
+  const [currentUser, setCurrentUser] = useState(null);
 
 
   const loadProfile = () => mainApi.getProfile()
-    .then(result => {
-      setCurrentUser({
-        loggedIn: true,
-        name: result.name,
-        email: result.email
-      })
-    })
+    .then(result => setCurrentUser({
+      loggedIn: true,
+      name: result.name,
+      email: result.email
+    }))
     .catch(() => setCurrentUser(notLoggedUser))
 
   useEffect(() => loadProfile(), [])
+
 
   const handlerChangeUser = (userData, route = '/') => {
     setCurrentUser(prevState => userData ? ({ ...prevState, ...userData }) : notLoggedUser)
@@ -46,21 +46,13 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="app">
+      {currentUser && <div className="app">
         <Switch>
-          <Route exact path="/">
-            <Main />
-          </Route>
-          <Route path="/movies">
-            <Movies />
-          </Route>
-          <Route path="/saved-movies">
-            <SavedMovies />
-          </Route>
-          <Route path="/profile">
-            <Profile onProfileUpdate={handlerChangeUser} />
-          </Route>
-
+          <Route exact path="/" component={Main} />
+          <ProtectedRoute path="/movies" component={Movies} />
+          <ProtectedRoute path="/saved-movies" component={SavedMovies} />
+          <ProtectedRoute path="/profile" component={Profile}
+            onProfileUpdate={handlerChangeUser} />
 
           <Route path="/signup">
             <Register onRegister={handlerChangeUser} />
@@ -68,11 +60,11 @@ function App() {
           <Route path="/signin">
             <Login onLogin={handlerChangeUser} />
           </Route>
-          <Route>
-            <Page404 />
-          </Route>
+
+          <ProtectedRoute path="/" component={Page404} />
+
         </Switch>
-      </div >
+      </div >}
     </CurrentUserContext.Provider >
   );
 }

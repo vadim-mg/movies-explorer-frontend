@@ -7,10 +7,9 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList"
 import Preloader from "../Preloader/Preloader"
 import { useState } from "react"
 import moviesApi from "../../utils/MoviesApi"
-import { maxTimeOfShortMovie } from "../../utils/constants"
 
 
-function Movies() {
+function Movies({ savedMovies, onMovieCardBtnClick }) {
 
   const [shownMovies, setShownMovies] = useState(JSON.parse(localStorage.getItem('movies')) || [])
   const [searchParams, setSearchParams] = useState(JSON.parse(localStorage.getItem('searchParams')) || {
@@ -21,14 +20,11 @@ function Movies() {
   const [error, setError] = useState('')
 
 
-  const searchMovies = (searchParams) => {
+  const searchMovies = (searchParams, filterFunction) => {
     setSearchParams(searchParams)
     setIsLoading(true)
     moviesApi.loadMovies()
-      .then(result => result.filter(item => !(
-        (searchParams.isShortFilm && item.duration > maxTimeOfShortMovie) ||
-        (item.nameRU.toLowerCase().indexOf(searchParams.searchText.toLowerCase()) === -1)
-      )))
+      .then(result => result.filter(item => filterFunction(searchParams, item)))
       .then(result => {
         setIsLoading(false)
         if (result.length > 0) {
@@ -52,19 +48,19 @@ function Movies() {
     <>
       <Header />
       <main className="movies">
-        <SearchForm onSearch={searchMovies} searchParams={searchParams} />
+        <SearchForm onSearch={searchMovies} searchParams={searchParams} minTextLenth="1" />
         {isLoading
           ? <Preloader />
           : <Section additionalContainerClass="container_size_xxl">
             {shownMovies &&
-              <MoviesCardList moviesList={shownMovies} error={error} />
+              <MoviesCardList moviesList={shownMovies} error={error} savedMovies={savedMovies}
+                onMovieCardBtnClick={onMovieCardBtnClick} />
             }
           </Section>
         }
       </main >
       <Footer />
     </>
-
   );
 }
 

@@ -4,32 +4,44 @@ import Footer from "../Footer/Footer"
 import Section from "../Section/Section"
 import SearchForm from "../SearchForm/SearchForm"
 import MoviesCardList from "../MoviesCardList/MoviesCardList"
-import Preloader from "../Preloader/Preloader"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 
-function SavedMovies() {
+function SavedMovies({ savedMovies, onMovieCardBtnClick }) {
+  const [shownMovies, setShownMovies] = useState([])
+  const [error, setError] = useState('')
+  const [searchParams, setSearchParams] = useState({
+    searchText: '',
+    isShortFilm: false
+  })
 
-  const moviesCards = []
+  useEffect(() => {
+    if (savedMovies) {
+      setShownMovies(savedMovies)
+    }
+  }, [savedMovies])
 
-  // eslint-disable-next-line no-unused-vars
-  const [savedMovies, setMovies] = useState(moviesCards.filter(item => item.saved))
+  const searchMovies = (searchParams, filterFunction) => {
+    setSearchParams(searchParams)
+    const searchResult = savedMovies.filter(item => filterFunction(searchParams, item))
+    setShownMovies(searchResult)
+    setError(searchResult.length === 0 ? 'Ничего не найдено!' : '')
+  }
 
   return (
     <>
       <Header />
       <main className="saved-movies">
-        <SearchForm />
-
-        {savedMovies ?
-          <Section additionalContainerClass="container_size_xxl">
-            <MoviesCardList moviesList={savedMovies} saved="true" />
-          </Section>
-          : <Preloader />}
+        <SearchForm onSearch={searchMovies} searchParams={searchParams} />
+        <Section additionalContainerClass="container_size_xxl">
+          {shownMovies &&
+            <MoviesCardList moviesList={shownMovies} isMyMovies="true" error={error} savedMovies={savedMovies}
+              onMovieCardBtnClick={onMovieCardBtnClick} />
+          }
+        </Section>
       </main >
       <Footer />
     </>
-
   )
 }
 

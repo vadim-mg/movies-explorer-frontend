@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react'
 import mainApi from '../../utils/MainApi'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
-const notLoggedUser = {
+const notLoginedUser = {
   loggedIn: false,
   name: '',
   email: ''
@@ -22,25 +22,44 @@ function App() {
 
   const history = useHistory()
   const [currentUser, setCurrentUser] = useState(null);
-
-
-  const loadProfile = () => mainApi.getProfile()
-    .then(result => setCurrentUser({
-      loggedIn: true,
-      name: result.name,
-      email: result.email
-    }))
-    .catch(() => setCurrentUser(notLoggedUser))
+  const [savedMovies, setSavedMovies] = useState([])
 
   useEffect(() => loadProfile(), [])
 
 
+  const loadSavedMovies = () => mainApi.getMovies()
+    .then(result => {
+      setSavedMovies(result)
+      return Promise.resolve(result)
+    })
+
+
+  const loadProfile = () => mainApi.getProfile()
+    .then(result => {
+      setCurrentUser({
+        loggedIn: true,
+        name: result.name,
+        email: result.email
+      })
+      return loadSavedMovies()
+    })
+    .catch(() => setCurrentUser(notLoginedUser))
+
+
   const handlerChangeUser = (userData, route = '/') => {
-    setCurrentUser(prevState => userData ? ({ ...prevState, ...userData }) : notLoggedUser)
+    setCurrentUser(prevState => userData ? ({ ...prevState, ...userData }) : notLoginedUser)
     if (userData && userData.loggedIn && !userData.name) {
       loadProfile()
     }
     history.push(route)
+  }
+
+
+  const handleMovieCardBurronClick = (movie) => {
+    const savedMovie = savedMovies.find(i => i.movieId === movie.movieId)
+    //сохраненный фильм удаляем, не сохраненный сохраняем
+    return (savedMovie ? mainApi.deleteMovie(savedMovie._id) : mainApi.createMovie(movie))
+      .then(() => loadSavedMovies())
   }
 
 
@@ -49,8 +68,10 @@ function App() {
       {currentUser && <div className="app">
         <Switch>
           <Route exact path="/" component={Main} />
-          <ProtectedRoute path="/movies" component={Movies} />
-          <ProtectedRoute path="/saved-movies" component={SavedMovies} />
+          <ProtectedRoute path="/movies" component={Movies} savedMovies={savedMovies}
+            onMovieCardBtnClick={handleMovieCardBurronClick} />
+          <ProtectedRoute path="/saved-movies" component={SavedMovies} savedMovies={savedMovies}
+            onMovieCardBtnClick={handleMovieCardBurronClick} />
           <ProtectedRoute path="/profile" component={Profile}
             onProfileUpdate={handlerChangeUser} />
 
@@ -62,7 +83,6 @@ function App() {
           </Route>
 
           <ProtectedRoute path="/" component={Page404} />
-
         </Switch>
       </div >}
     </CurrentUserContext.Provider >

@@ -65,7 +65,7 @@ class MainApi {
   //	все сохранённые пользователем фильмы
   getMovies() {
     return this._fetch(
-      'users/movies',
+      'movies',
       'Ошибка загрузки фильмов',
     )
   }
@@ -97,18 +97,6 @@ class MainApi {
       'POST',
       { email, password, name }
     )
-      .catch(err => {
-        switch (err.status) {
-          case 400:
-            err.message = "Не верно заполнено како-то поле"
-            break
-          case 409:
-            err.message = "Пользователь с таким e-mail уже существует"
-            break
-        }
-        return Promise.reject(err)
-      }
-      )
   }
 
   // ЛОгин -сохраняет JWT в куках, если в теле запроса переданы правильные почта и пароль

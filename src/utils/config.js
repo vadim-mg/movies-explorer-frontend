@@ -30,7 +30,7 @@ export const breakPoints = {
   },
 }
 
-export const moviesImageUrl = 'https://api.nomoreparties.co'
+
 export const moviesApiUrl = 'https://api.nomoreparties.co/beatfilm-movies'
 // eslint-disable-next-line no-undef
 export const mainApiUrl = `${window.location.protocol}${process.env.MAIN_API_URL || '//localhost:3000'}`

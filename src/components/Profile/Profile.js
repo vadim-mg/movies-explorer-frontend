@@ -7,7 +7,7 @@ import mainApi from "../../utils/MainApi"
 import isEmail from 'validator/lib/isEmail';
 
 
-function Profile({ onProfileUpdate }) {
+function Profile({ onProfileUpdate, onLogOut }) {
   const currentUser = useContext(CurrentUserContext)
   const [values, setValues] = useState(currentUser)
   const [isEditMode, setIsEditMode] = useState(false)
@@ -29,17 +29,26 @@ function Profile({ onProfileUpdate }) {
       })
   }
 
-  const handleLogout = () => mainApi.signOut()
-    .then(() => onProfileUpdate(null))
+  const handleLogout = () => {
+    onProfileUpdate(null)
+    onLogOut()
+  }
 
-  const toggleEditMode = () => Promise.resolve(setIsEditMode(!isEditMode))
+  const handleToggleEditMode = () => {
+    if (isEditMode) {
+      //сброс для кнопки "вернуться"
+      setValues({ name: '', email: '' })
+      setTimeout(() => setValues(currentUser), 1)
+    }
+    setIsEditMode(!isEditMode)
+  }
 
   return (
     <>
       <Header />
       <Form
         simpleFormType
-        caption={`Привет, ${values.name}!`}
+        caption={`Привет, ${currentUser.name}!`}
         onSubmit={isEditMode ? handleSubmit : ''}
         submitButtonName={isEditMode ? "Cохранить" : null}
         isEditMode={isEditMode}
@@ -65,7 +74,7 @@ function Profile({ onProfileUpdate }) {
         ]}>
 
         <div className="profile__links">
-          <button type="button" className="profile__link" onClick={toggleEditMode}>{!isEditMode ? 'Редактировать' : 'Вернуться'}</button>
+          <button type="button" className="profile__link" onClick={handleToggleEditMode}>{!isEditMode ? 'Редактировать' : 'Вернуться'}</button>
           {!isEditMode && <button type="button" className="profile__link profile__link_color_red" onClick={handleLogout}>Выйти из аккаута</button>}
         </div>
 

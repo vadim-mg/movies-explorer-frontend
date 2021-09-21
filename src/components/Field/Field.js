@@ -29,6 +29,7 @@ function Field({ field, value, isEditMode, simpleFormType = false, onChange }) {
   const fieldErrorText = fieldError.text +
     (fieldError.patternMismatch ? (field.title ? ` (${field.title})` : '') : '')
 
+
   return (
     <div className={fieldClassName}>
       <label className={fieldLabelClassName} htmlFor={field.name}> {field.label} </label>

@@ -1,10 +1,15 @@
 import { moviesApiUrl } from "./config"
 export const moviesImageUrl = 'https://api.nomoreparties.co'
+const urlPattern = /^https?:\/\/([\w-]+\.)+\w+[/\w\-.~:?#[\]@!$&'()*+,;=]*$/
 
 class MoviesApi {
 
   constructor(baseUrl) {
     this._baseUrl = baseUrl
+  }
+
+  validUrl(url) {
+    return urlPattern.test(url) ? url : 'https://api.nomoreparties.co/'
   }
 
   loadMovies() {
@@ -26,16 +31,16 @@ class MoviesApi {
         return res.map(item => ({
           id: res._id,
           movieId: item.id,
-          country: item.country,
-          director: item.director,
-          duration: item.duration,
-          year: item.year,
-          description: item.description,
-          image: moviesImageUrl + item.image.url,
-          trailer: item.trailerLink,
-          thumbnail: moviesImageUrl + item.image.formats.thumbnail.url,
-          nameRU: item.nameRU,
-          nameEN: item.nameEN,
+          country: item.country || 'No Country specified in BeatFilms',
+          director: item.director || 'No Director specified in BeatFilms',
+          duration: item.duration || 0,
+          year: item.year || 'No Year specified in BeatFilms',
+          description: item.description || 'No Description specified in BeatFilms',
+          image: this.validUrl(moviesImageUrl + item.image.url),
+          trailer: this.validUrl(item.trailerLink),
+          thumbnail: this.validUrl(moviesImageUrl + item.image.formats.thumbnail.url),
+          nameRU: item.nameRU || 'No Russian movie Name specified in BeatFilms',
+          nameEN: item.nameEN || 'No English movie name specified in BeatFilms',
         }))
       })
   }

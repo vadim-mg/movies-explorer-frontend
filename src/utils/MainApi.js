@@ -66,7 +66,7 @@ class MainApi {
   getMovies() {
     return this._fetch(
       'movies',
-      'Ошибка загрузки фильмов',
+      'Ошибка загрузки сохранённых фильмов',
     )
   }
 

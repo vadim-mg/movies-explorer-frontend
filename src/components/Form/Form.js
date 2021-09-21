@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 function Form({ children, values, caption, onSubmit, submitButtonName, question, linkName, link, fields, isEditMode = true, simpleFormType = false }) {
 
   const [formFields, setFormFields] = useState(values)
-  const [formFieldsErrors, setFormFieldsErrors] = useState(fields.reduce((acc, val) => ({ ...acc, [val.name]: { valid: true } })
+  const [formFieldsErrors, setFormFieldsErrors] = useState(fields.reduce((acc, val) => ({ ...acc, [val.name]: { valid: values[val.name] ? true : false } })
     , {}))
   const [isFieldsChanged, setIsFieldsChanged] = useState(false)
   const [isFormValid, setIsFormValid] = useState(false)
@@ -28,14 +28,14 @@ function Form({ children, values, caption, onSubmit, submitButtonName, question,
     } else {
       setIsFormValid(true)
     }
-    for (let prop in values) {
-      if (formFields && formFields[prop] && formFields[prop] !== values[prop]) {
+    for (let
+       prop in values) {
+      if (formFields && formFields[prop] && (formFields[prop] !== values[prop])) {
         setIsFieldsChanged(true)
         return
       }
     }
     setIsFieldsChanged(false)
-
   }, [formFields])
 
 

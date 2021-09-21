@@ -7,9 +7,10 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList"
 import Preloader from "../Preloader/Preloader"
 import { useState } from "react"
 import moviesApi from "../../utils/MoviesApi"
+import { maxTimeOfShortMovie } from "../../utils/constants"
 
 
-function Movies({ savedMovies, onMovieCardBtnClick }) {
+function Movies({ savedMovies, onMovieCardBtnClick, mainError }) {
 
   const [shownMovies, setShownMovies] = useState(JSON.parse(localStorage.getItem('movies')) || [])
   const [searchParams, setSearchParams] = useState(JSON.parse(localStorage.getItem('searchParams')) || {
@@ -18,28 +19,42 @@ function Movies({ savedMovies, onMovieCardBtnClick }) {
   })
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+  const [badError, setBadError] = useState('')
 
+  const filterFunction = (searchParams, item) => {
+    if (!searchParams || !item) {
+      return false
+    }
+    const result = !(
+      (searchParams.isShortFilm && item.duration > maxTimeOfShortMovie) ||
+      (item.nameRU.toLowerCase().indexOf(searchParams.searchText.toLowerCase()) === -1)
+    )
+    return result
+  }
 
-  const searchMovies = (searchParams, filterFunction) => {
+  const searchMovies = (searchParams) => {
     setSearchParams(searchParams)
     setIsLoading(true)
+    localStorage.setItem('searchParams', JSON.stringify(searchParams))
     moviesApi.loadMovies()
       .then(result => result.filter(item => filterFunction(searchParams, item)))
       .then(result => {
         setIsLoading(false)
+        localStorage.setItem('movies', JSON.stringify(result))
+        setBadError('')
         if (result.length > 0) {
           setShownMovies(result)
-          localStorage.setItem('movies', JSON.stringify(result))
-          localStorage.setItem('searchParams', JSON.stringify(searchParams))
+          setError('')
         } else {
           setShownMovies([])
           setError('Ничего не найдено!')
         }
       })
-      .catch(err => {
-        console.error(err)
+      .catch(() => {
         setIsLoading(false)
-        setError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.')
+        localStorage.setItem('movies', JSON.stringify([]))
+        setShownMovies([])
+        setBadError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.')
       })
   }
 
@@ -53,7 +68,7 @@ function Movies({ savedMovies, onMovieCardBtnClick }) {
           ? <Preloader />
           : <Section additionalContainerClass="container_size_xxl">
             {shownMovies &&
-              <MoviesCardList moviesList={shownMovies} error={error} savedMovies={savedMovies}
+              <MoviesCardList moviesList={shownMovies} badError={mainError + badError} goodError={error} savedMovies={savedMovies}
                 onMovieCardBtnClick={onMovieCardBtnClick} />
             }
           </Section>

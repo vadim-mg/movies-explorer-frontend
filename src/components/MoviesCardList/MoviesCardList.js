@@ -4,22 +4,26 @@ import { breakPoints } from "../../utils/config"
 import useCurrentWidth from '../../utils/useCurrentWidth'
 import { useState, useEffect } from 'react'
 
-function MoviesCardList({ moviesList, error, isMyMovies = false, onMovieCardBtnClick, savedMovies }) {
+function MoviesCardList({ moviesList, goodError='', badError='', isMyMovies = false, onMovieCardBtnClick, savedMovies, showAll = false }) {
 
   //Возвращает подходящие настройки из массива breakPoints
   const getBreakPointSettings = () => Object.values(breakPoints).find(i => currentWidth < i.size)
 
   const currentWidth = useCurrentWidth()
-  const [moviesCount, setMoviesCount] = useState(getBreakPointSettings().initMovieCount)
+  const [moviesCount, setMoviesCount] = useState(0)
 
+  const setRightMoviesCount = () => {
+    if (showAll) {
+      setMoviesCount(moviesList.length)
+    } else {
+      const breakPointSettigs = getBreakPointSettings()
+      setMoviesCount(moviesCount < breakPointSettigs.initMovieCount
+        ? breakPointSettigs.initMovieCount
+        : moviesCount - moviesCount % breakPointSettigs.cardsInRow)
+    }
+  }
 
-  //управляем кол-вом отображаемых карточек в зависимости от ширины экрана
-  useEffect(() => {
-    const breakPointSettigs = getBreakPointSettings()
-    setMoviesCount(moviesCount < breakPointSettigs.initMovieCount
-      ? breakPointSettigs.initMovieCount
-      : moviesCount - moviesCount % breakPointSettigs.cardsInRow)
-  }, [currentWidth])
+  useEffect(() => setRightMoviesCount(), [moviesList, currentWidth])
 
   //добавляем нужное кол-во карточек
   const handleMoreButtonClick = () => setMoviesCount(moviesCount + getBreakPointSettings().increment)
@@ -33,8 +37,10 @@ function MoviesCardList({ moviesList, error, isMyMovies = false, onMovieCardBtnC
           {moviesList.slice(0, moviesCount)
             .map(element => (<MoviesCard key={element.movieId} card={element} isMyMovies={isMyMovies} isLiked={likedIds.includes(element.movieId)} onMovieCardBtnClick={onMovieCardBtnClick} />))}
         </div>
-        : <p className="movies-card-list__error"> {error}</p>
+        : ''
       }
+      {goodError !== '' ? <p className="movies-card-list__error movies-card-list__error_good"> {goodError}</p> : ''}
+      {badError !== '' ? <p className="movies-card-list__error"> {badError}</p> : ''}
       {moviesCount < moviesList.length
         ? <button className="movies-card-list__more-btn" onClick={handleMoreButtonClick}>Ещё</button>
         : ''

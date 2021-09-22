@@ -1,5 +1,11 @@
 import "./MoviesCard.css"
 
+const getBeautifulTime = (timeInMinutes) => {
+  const h = Math.floor(timeInMinutes / 60)
+  const m = timeInMinutes % 60
+  return `${h ? h + 'ч' : ''} ${m}${h ? 'м' : 'минут'}`
+}
+
 function MoviesCard({ card, isMyMovies, isLiked, onMovieCardBtnClick }) {
 
   let cardButtonClass, cardButtonText
@@ -24,7 +30,7 @@ function MoviesCard({ card, isMyMovies, isLiked, onMovieCardBtnClick }) {
     <figure className="movies-card" onClick={handleCardClick} >
       <figcaption className="movies-card__caption">
         <p className="movies-card__name">{card.nameRU}</p>
-        <p className="movies-card__time">{`${card.duration} минут`}</p>
+        <p className="movies-card__time">{getBeautifulTime(card.duration)}</p>
       </figcaption>
       <img className="movies-card__image" src={card.image} alt={card.nameRu} />
       <button className={cardButtonClass} onClick={handleButtonClick}>{cardButtonText}</button>

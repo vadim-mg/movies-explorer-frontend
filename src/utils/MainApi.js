@@ -1,4 +1,4 @@
-import { mainApiUrl } from "./config";
+import { MAIN_API_URL } from "./config";
 
 class MainApi {
   constructor(baseUrl) {
@@ -32,6 +32,12 @@ class MainApi {
             status: res.status,
           })
         }
+        if (adress !== 'signin' && res.status === 401) {
+          return Promise.reject({
+            message: 'Необходима авторизация!',
+            status: res.status,
+          })
+        }
         return res.text().then(text => { throw new Error(text) })
       })
       .catch(err => {
@@ -39,8 +45,7 @@ class MainApi {
           err.message = 'Сервер не доступен'
         }
         const textError = `${error} : ${err.message || JSON.parse(err.message).message}`
-        // console.log(`В запросе: /${adress} - ${textError} `)
-        return Promise.reject({ message: textError })
+        return Promise.reject({ message: textError , status: err.status})
       })
   }
 
@@ -120,6 +125,6 @@ class MainApi {
 
 }
 
-const mainApi = new MainApi(mainApiUrl)
+const mainApi = new MainApi(MAIN_API_URL)
 
 export default mainApi

@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom'
 import { useState, useEffect, useContext, useCallback } from 'react'
 import useCurrentWidth from '../../utils/useCurrentWidth'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
-import { breakPoints } from '../../utils/config'
+import { BREAK_POINTS } from '../../utils/config'
 
 
 function Header({ additionalContainerClass = '', withoutNav }) {
@@ -14,19 +14,19 @@ function Header({ additionalContainerClass = '', withoutNav }) {
   const [navigationState, setNavigationState] = useState(navigationStates.hidden)
   const currentWidth = useCurrentWidth()
 
-  const handleOpenNavigation = () => setNavigationState(currentWidth <= breakPoints.lg.size
+  const handleOpenNavigation = () => setNavigationState(currentWidth <= BREAK_POINTS.lg.size
     ? navigationStates.popup_opened
     : navigationStates.desktop)
 
   const handleCloseNavigation = useCallback(() =>
-    setNavigationState(currentWidth <= breakPoints.lg.size
+    setNavigationState(currentWidth <= BREAK_POINTS.lg.size
       ? navigationStates.hidden
       : navigationStates.desktop), [currentWidth])
 
 
   // если пользователь увеличивает ширину окна больше 992px, закрываем меню
   useEffect(() => {
-    if (currentWidth > breakPoints.lg.size) {
+    if (currentWidth > BREAK_POINTS.lg.size) {
       handleCloseNavigation()
     }
   }, [handleCloseNavigation, currentWidth])

@@ -1,4 +1,4 @@
-import { moviesApiUrl } from "./config"
+import { MOVIE_API_URL } from "./config"
 export const moviesImageUrl = 'https://api.nomoreparties.co'
 const urlPattern = /^https?:\/\/([\w-]+\.)+\w+[/\w\-.~:?#[\]@!$&'()*+,;=]*$/
 
@@ -43,9 +43,10 @@ class MoviesApi {
           nameEN: item.nameEN || 'No English movie name specified in BeatFilms',
         }))
       })
+      //catch есть у вызывающей функции
   }
 }
 
-const moviesApi = new MoviesApi(moviesApiUrl)
+const moviesApi = new MoviesApi(MOVIE_API_URL)
 
 export default moviesApi

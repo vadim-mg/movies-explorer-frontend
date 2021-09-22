@@ -3,7 +3,12 @@ import CheckBox from "../CheckBox/CheckBox"
 import Container from "../Container/Container"
 import { useState, useEffect } from "react"
 
-function SearchForm({ onSearch, searchParams, minTextLenth = 0 }) {
+const emptySearchField = {
+  searchText: '',
+  isShortFilm: false
+}
+
+function SearchForm({ onSearch, searchParams, minTextLenth = 0, checkBoxDisabled = true }) {
   const [searchText, setSearchText] = useState(searchParams.searchText)
   const [isShortFilm, setIsShortFilm] = useState(searchParams.isShortFilm)
   const [isValidForm, setIsValidForm] = useState(true)
@@ -18,7 +23,12 @@ function SearchForm({ onSearch, searchParams, minTextLenth = 0 }) {
     setIsValidForm(event.target.value.length >= minTextLenth)
   }
 
-  const handleCheckBoxChange = (event) => setIsShortFilm(event.target.checked)
+  const handleCheckBoxChange = (event) => {
+    setIsShortFilm(event.target.checked)
+    if (searchText.length >= minTextLenth) {
+      onSearch({ searchText, isShortFilm: event.target.checked })
+    }
+  }
 
   const handleSearch = (event) => {
     setIsValidForm(searchText.length >= minTextLenth)
@@ -34,10 +44,11 @@ function SearchForm({ onSearch, searchParams, minTextLenth = 0 }) {
         <input className="search-form__field" placeholder="Фильм" name="searchField" type="text" value={searchText || ''} onChange={handleInputChange} />
         <button className="search-form__search-button" type="submit">Найти</button>
         {!isValidForm && <p className="search-form__error">Нужно ввести ключевое слово</p>}
-        <CheckBox className="search-form__filter" name="searchFilter" checked={isShortFilm || false} onChange={handleCheckBoxChange}>Короткометражки</CheckBox>
+        <CheckBox className="search-form__filter" name="searchFilter" checked={isShortFilm || false} disabled={checkBoxDisabled} onChange={handleCheckBoxChange}>Короткометражки</CheckBox>
       </form>
     </Container >
   );
 }
 
-export default SearchForm
+export { SearchForm, emptySearchField }
+

@@ -1,74 +1,88 @@
 import "./Movies.css"
+import { useState } from "react"
 import Header from "../Header/Header"
 import Footer from "../Footer/Footer"
 import Section from "../Section/Section"
-import SearchForm from "../SearchForm/SearchForm"
+import { SearchForm, emptySearchField } from "../SearchForm/SearchForm"
 import MoviesCardList from "../MoviesCardList/MoviesCardList"
 import Preloader from "../Preloader/Preloader"
-import { useState } from "react"
 import moviesApi from "../../utils/MoviesApi"
-import { maxTimeOfShortMovie } from "../../utils/constants"
+import { MAX_TIME_OF_SHORT_MOVIE, TIME_LIFE_OF_MOVIE_API_RESULT } from "../../utils/config"
 
 
-function Movies({ savedMovies, onMovieCardBtnClick, mainError }) {
+function Movies({ savedMovies, onMovieCardBtnClick, mainError}) {
 
-  const [shownMovies, setShownMovies] = useState(JSON.parse(localStorage.getItem('movies')) || [])
-  const [searchParams, setSearchParams] = useState(JSON.parse(localStorage.getItem('searchParams')) || {
-    searchText: '',
-    isShortFilm: false
-  })
+  const [searchParams, setSearchParams] = useState(
+    JSON.parse(localStorage.getItem('searchParams')) || emptySearchField)
+
+  const filterFunction = (searchParams, item) => (!searchParams || !item)
+    ? false
+    : !((searchParams.isShortFilm && item.duration > MAX_TIME_OF_SHORT_MOVIE) ||
+      (item.nameRU.toLowerCase().indexOf(searchParams.searchText.toLowerCase()) === -1))
+
+  const [loadedMovies, setLoadedMovies] = useState(
+    localStorage.getItem('movies') &&
+    JSON.parse(localStorage.getItem('movies'))
+      .filter(item => filterFunction(searchParams, item)) || [])
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [goodError, setGoodError] = useState('')
   const [badError, setBadError] = useState('')
 
-  const filterFunction = (searchParams, item) => {
-    if (!searchParams || !item) {
-      return false
-    }
-    const result = !(
-      (searchParams.isShortFilm && item.duration > maxTimeOfShortMovie) ||
-      (item.nameRU.toLowerCase().indexOf(searchParams.searchText.toLowerCase()) === -1)
-    )
-    return result
-  }
+
 
   const searchMovies = (searchParams) => {
-    setSearchParams(searchParams)
     setIsLoading(true)
+    setSearchParams(searchParams)
     localStorage.setItem('searchParams', JSON.stringify(searchParams))
-    moviesApi.loadMovies()
-      .then(result => result.filter(item => filterFunction(searchParams, item)))
-      .then(result => {
-        setIsLoading(false)
-        localStorage.setItem('movies', JSON.stringify(result))
-        setBadError('')
-        if (result.length > 0) {
-          setShownMovies(result)
-          setError('')
-        } else {
-          setShownMovies([])
-          setError('Ничего не найдено!')
-        }
-      })
-      .catch(() => {
-        setIsLoading(false)
-        localStorage.setItem('movies', JSON.stringify([]))
-        setShownMovies([])
-        setBadError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.')
-      })
+
+    const showResult = (movies) => {
+      const result = movies.filter(item => filterFunction(searchParams, item))
+      setLoadedMovies((result.length > 0) ? result : [])
+      setBadError('')
+      setGoodError((result.length > 0) ? '' : 'Ничего не найдено!')
+      setIsLoading(false)
+    }
+
+    //Запрос к серверку за фильмами не чаще чер раз в TIME_LIFE_OF_MOVIE_API_RESULT минут
+    const now = new Date().getTime() / 1000 / 60
+    const loadMoviesTime = localStorage.getItem('loadMoviesAt')
+    if (!loadMoviesTime || now - loadMoviesTime > TIME_LIFE_OF_MOVIE_API_RESULT) {
+      localStorage.removeItem('movies')
+      localStorage.setItem('loadMoviesAt', now)
+    }
+
+    const moviesInStorage = localStorage.getItem('movies')
+
+    if (moviesInStorage) {
+      showResult(JSON.parse(moviesInStorage))
+    } else {
+      moviesApi.loadMovies()
+        .then(result => {
+          localStorage.setItem('movies', JSON.stringify(result))
+          showResult(result)
+        })
+        .catch(() => {
+          localStorage.removeItem('movies')
+          setLoadedMovies([])
+          setGoodError('')
+          setBadError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.')
+          setIsLoading(false)
+        })
+    }
   }
 
+  const checkBoxDisabled = searchParams.isShortFilm ? false : !loadedMovies.length
 
   return (
     <>
       <Header />
       <main className="movies">
-        <SearchForm onSearch={searchMovies} searchParams={searchParams} minTextLenth="1" />
+        <SearchForm onSearch={searchMovies} searchParams={searchParams} minTextLenth="1" checkBoxDisabled={checkBoxDisabled} />
         {isLoading
           ? <Preloader />
           : <Section additionalContainerClass="container_size_xxl">
-            {shownMovies &&
-              <MoviesCardList moviesList={shownMovies} badError={mainError + badError} goodError={error} savedMovies={savedMovies}
+            {loadedMovies &&
+              <MoviesCardList moviesList={loadedMovies} badError={mainError + badError} goodError={goodError} savedMovies={savedMovies}
                 onMovieCardBtnClick={onMovieCardBtnClick} />
             }
           </Section>

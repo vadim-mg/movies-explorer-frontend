@@ -1,13 +1,13 @@
 import "./MoviesCardList.css"
 import MoviesCard from "../MoviesCard/MoviesCard"
-import { breakPoints } from "../../utils/config"
+import { BREAK_POINTS } from "../../utils/config"
 import useCurrentWidth from '../../utils/useCurrentWidth'
 import { useState, useEffect } from 'react'
 
 function MoviesCardList({ moviesList, goodError='', badError='', isMyMovies = false, onMovieCardBtnClick, savedMovies, showAll = false }) {
 
-  //Возвращает подходящие настройки из массива breakPoints
-  const getBreakPointSettings = () => Object.values(breakPoints).find(i => currentWidth < i.size)
+  //Возвращает подходящие настройки из массива BREAK_POINTS
+  const getBreakPointSettings = () => Object.values(BREAK_POINTS).find(i => currentWidth < i.size)
 
   const currentWidth = useCurrentWidth()
   const [moviesCount, setMoviesCount] = useState(0)

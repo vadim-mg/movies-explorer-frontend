@@ -6,7 +6,7 @@ import Profile from '../Profile/Profile'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
 import Page404 from '../Page404/Page404'
-import { Route, Switch, useHistory } from 'react-router-dom'
+import { Route, Switch, useHistory, Redirect } from 'react-router-dom'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import { useState, useEffect } from 'react'
 import mainApi from '../../utils/MainApi'
@@ -33,11 +33,7 @@ function App() {
       setError('')
       return Promise.resolve(result)
     })
-    .catch((err) => {
-      setSavedMovies([])
-      setError(err.message)
-      return err
-    })
+    .catch((err) => handleError(err))
 
   const loadProfile = () => mainApi.getProfile()
     .then(result => {
@@ -46,11 +42,12 @@ function App() {
         name: result.name,
         email: result.email
       })
+      setError('')
     })
-    .catch(() => setCurrentUser(notLoginedUser))
     .then(() => loadSavedMovies())
+    .catch((err) => handleError(err))
 
-  const handlerChangeUser = (userData, route = '/') => {
+  const handleChangeUser = (userData, route = '/') => {
     setCurrentUser(prevState => userData ? ({ ...prevState, ...userData }) : notLoginedUser)
     if (userData && userData.loggedIn && !userData.name) {
       loadProfile()
@@ -60,21 +57,41 @@ function App() {
 
   const handleMovieCardBurronClick = (movie) => {
     const savedMovie = savedMovies.find(i => i.movieId === movie.movieId)
+    return (savedMovie
+      ? mainApi.deleteMovie(savedMovie._id)
+        .then((result) => {
+          setSavedMovies(savedMovies.filter(item => item._id !== result._id))
+          setError('')
+        })
+      : mainApi.createMovie(movie)
+        .then((result) => {
+          const arr = savedMovies.slice()
+          arr.push(result)
+          setSavedMovies(arr)
+          setError('')
+        }))
+      .catch(err => handleError(err))
+  }
 
-    if (savedMovie) {
-      return mainApi.deleteMovie(savedMovie._id)
-        .then((result) => setSavedMovies(savedMovies.filter(item => item._id !== result._id)))
-    } else {
-      return (savedMovie ? mainApi.deleteMovie(savedMovie._id) : mainApi.createMovie(movie))
-        .then(() => loadSavedMovies())
+  const handleError = (err) => {
+    if (err.status && err.status === 401) {
+      setTimeout(clearAndRedirect, 3000)
     }
+    setError(err.message)
+    return err
+  }
+
+  const clearAndRedirect = () => {
+    localStorage.clear()
+    setSavedMovies([])
+    setError('')
+    setCurrentUser(notLoginedUser)
+    history.push('/')
   }
 
   const handleLogout = () => mainApi.signOut()
-    .then(() => {
-      localStorage.clear()
-      setSavedMovies([])
-    })
+    .then(() => clearAndRedirect())
+    .catch(err => setError(err.message))
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -87,16 +104,18 @@ function App() {
             <ProtectedRoute path="/saved-movies" component={SavedMovies} savedMovies={savedMovies}
               onMovieCardBtnClick={handleMovieCardBurronClick} mainError={error} />
             <ProtectedRoute path="/profile" component={Profile}
-              onProfileUpdate={handlerChangeUser} onLogOut={handleLogout} />
+              onProfileUpdate={handleChangeUser} onLogOut={handleLogout}
+              mainError={error} handleError={handleError} />
 
             <Route path="/signup">
-              <Register onRegister={handlerChangeUser} />
+              {currentUser.loggedIn ? <Redirect to="/" /> : <Register onRegister={handleChangeUser} />}
             </Route>
             <Route path="/signin">
-              <Login onLogin={handlerChangeUser} />
+              {currentUser.loggedIn ? <Redirect to="/" /> : <Login onLogin={handleChangeUser} />}
             </Route>
 
             <ProtectedRoute path="/" component={Page404} />
+
           </Switch>
         </div >
       }

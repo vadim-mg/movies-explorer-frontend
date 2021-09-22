@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback, Fragment } from "react"
 import Field from "../Field/Field"
 import { Link } from "react-router-dom"
 
-function Form({ children, values, caption, onSubmit, submitButtonName, question, linkName, link, fields, isEditMode = true, simpleFormType = false }) {
+function Form({ children, values, caption, onSubmit, submitButtonName, question, linkName, link, fields, isEditMode = true, simpleFormType = false, mainError = '' }) {
 
   const [formFields, setFormFields] = useState(values)
   const [formFieldsErrors, setFormFieldsErrors] = useState(fields.reduce((acc, val) => ({ ...acc, [val.name]: { valid: values[val.name] ? true : false } })
@@ -13,7 +13,7 @@ function Form({ children, values, caption, onSubmit, submitButtonName, question,
   const [formError, setFormError] = useState('')
 
   useEffect(() => {
-    return () => setFormFields({})
+    return () => setFormFields(values)
   }, [])
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function Form({ children, values, caption, onSubmit, submitButtonName, question,
       setIsFormValid(true)
     }
     for (let
-       prop in values) {
+      prop in values) {
       if (formFields && formFields[prop] && (formFields[prop] !== values[prop])) {
         setIsFieldsChanged(true)
         return
@@ -91,6 +91,7 @@ function Form({ children, values, caption, onSubmit, submitButtonName, question,
         ))}
 
         <p className={formErrorClassName}>{formError}</p>
+        {mainError !=='' ? <p className={formErrorClassName}>{mainError}</p> : ''}
 
       </fieldset>
 

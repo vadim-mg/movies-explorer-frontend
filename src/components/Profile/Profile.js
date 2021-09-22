@@ -7,7 +7,7 @@ import mainApi from "../../utils/MainApi"
 import isEmail from 'validator/lib/isEmail';
 
 
-function Profile({ onProfileUpdate, onLogOut }) {
+function Profile({ onProfileUpdate, onLogOut, mainError, handleError }) {
   const currentUser = useContext(CurrentUserContext)
   const [values, setValues] = useState(currentUser)
   const [isEditMode, setIsEditMode] = useState(false)
@@ -18,19 +18,23 @@ function Profile({ onProfileUpdate, onLogOut }) {
 
 
   const handleSubmit = (userData) => {
+    setIsEditMode(false)
     setValues(userData)
     return mainApi.setProfile({
       email: userData.email,
       name: userData.name
     })
       .then(res => {
-        setIsEditMode(false)
+        // setIsEditMode(false)
         onProfileUpdate({ ...res, 'loggedIn': true }, '/profile')
+      })
+      .catch(err => {
+        setIsEditMode(true)
+        handleError(err)
       })
   }
 
   const handleLogout = () => {
-    onProfileUpdate(null)
     onLogOut()
   }
 
@@ -53,6 +57,7 @@ function Profile({ onProfileUpdate, onLogOut }) {
         submitButtonName={isEditMode ? "Cохранить" : null}
         isEditMode={isEditMode}
         values={values}
+        mainError={mainError}
         fields={[
           {
             name: 'name',

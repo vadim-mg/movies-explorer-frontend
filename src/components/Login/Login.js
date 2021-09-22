@@ -11,10 +11,8 @@ function Login({ onLogin }) {
     return mainApi
       .signIn(email, password)
       .then(() => onLogin({ email, 'loggedIn': true }, '/movies'))
-
     //cath есть в форме, откуда вызывается handleLogin
   }
-
 
   return (
     <>

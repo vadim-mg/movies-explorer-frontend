@@ -2,10 +2,10 @@ import "./SavedMovies.css"
 import Header from "../Header/Header"
 import Footer from "../Footer/Footer"
 import Section from "../Section/Section"
-import SearchForm from "../SearchForm/SearchForm"
+import { SearchForm, emptySearchField } from "../SearchForm/SearchForm"
 import MoviesCardList from "../MoviesCardList/MoviesCardList"
 import { useState, useEffect } from "react"
-import { maxTimeOfShortMovie } from "../../utils/constants"
+import { MAX_TIME_OF_SHORT_MOVIE } from "../../utils/config"
 
 
 
@@ -13,18 +13,14 @@ function SavedMovies({ savedMovies, onMovieCardBtnClick, mainError }) {
 
   const [shownMovies, setShownMovies] = useState([])
   const [error, setError] = useState('')
-  const [searchParams, setSearchParams] = useState(JSON.parse(localStorage.getItem('searchParamsForSavedMovies')) || {
-    searchText: '',
-    isShortFilm: false
-  })
-
+  const [searchParams, setSearchParams] = useState(JSON.parse(localStorage.getItem('searchParamsForSavedMovies')) || emptySearchField)
 
   const filterMovies = (searchParams, item) => {
     if (!searchParams || !item) {
       return false
     }
     const result = !(
-      (searchParams.isShortFilm && item.duration > maxTimeOfShortMovie) ||
+      (searchParams.isShortFilm && item.duration > MAX_TIME_OF_SHORT_MOVIE) ||
       (item.nameRU.toLowerCase().indexOf(searchParams.searchText.toLowerCase()) === -1)
     )
     return result
@@ -49,7 +45,8 @@ function SavedMovies({ savedMovies, onMovieCardBtnClick, mainError }) {
     <>
       <Header />
       <main className="saved-movies">
-        <SearchForm onSearch={handleSearchMovies} searchParams={searchParams} />
+        <SearchForm onSearch={handleSearchMovies} searchParams={searchParams}
+          checkBoxDisabled={!savedMovies.length} />
         <Section additionalContainerClass="container_size_xxl">
           {shownMovies &&
             <MoviesCardList moviesList={shownMovies} isMyMovies="true" badError={mainError} goodError={error} savedMovies={savedMovies}

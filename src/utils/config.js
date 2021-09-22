@@ -37,7 +37,7 @@ export const MOVIE_API_URL = 'https://api.nomoreparties.co/beatfilm-movies'
 export const TIME_LIFE_OF_MOVIE_API_RESULT = 5
 
 // eslint-disable-next-line no-undef
-export const MAIN_API_URL = `${window.location.protocol}${process.env.MAIN_API_URL || '//localhost:3000'}`
+export const MAIN_API_URL = `${window.location.protocol}${process.env.REACT_APP_MAIN_API_URL || '//localhost:3000'}`
 
 // Продолжительность фильмов, меньше которой фильмы считаются короткометражными
 export const MAX_TIME_OF_SHORT_MOVIE = 40

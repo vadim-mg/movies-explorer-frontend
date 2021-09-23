@@ -41,7 +41,7 @@ function Header({ additionalContainerClass = '', withoutNav }) {
         {!withoutNav &&
           <>
             {
-              currentUser.loggedIn
+              currentUser && currentUser.loggedIn
                 ? <>
                   <Navigation navigationState={navigationState} onCloseNavigation={handleCloseNavigation} />
                   <button className="header__show-menu-button" onClick={handleOpenNavigation} />

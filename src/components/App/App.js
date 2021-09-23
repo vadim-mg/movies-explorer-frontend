@@ -21,7 +21,7 @@ const notLoginedUser = {
 function App() {
 
   const history = useHistory()
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user')));
   const [savedMovies, setSavedMovies] = useState([])
   const [error, setError] = useState('')
 
@@ -37,11 +37,13 @@ function App() {
 
   const loadProfile = () => mainApi.getProfile()
     .then(result => {
-      setCurrentUser({
+      const userData = {
         loggedIn: true,
         name: result.name,
         email: result.email
-      })
+      }
+      setCurrentUser(userData)
+      localStorage.setItem('user', JSON.stringify(userData))
       setError('')
     })
     .then(() => loadSavedMovies())
@@ -55,7 +57,7 @@ function App() {
     history.push(route)
   }
 
-  const handleMovieCardBurronClick = (movie) => {
+  const handleMovieCardButtonClick = (movie) => {
     const savedMovie = savedMovies.find(i => i.movieId === movie.movieId)
     return (savedMovie
       ? mainApi.deleteMovie(savedMovie._id)
@@ -75,50 +77,60 @@ function App() {
 
   const handleError = (err) => {
     if (err.status && err.status === 401) {
-      setTimeout(clearAndRedirect, 3000)
+      setTimeout(() => {
+        clearLocalStorage()
+        history.push('/signin')
+      }, 3000)
     }
     setError(err.message)
     return err
   }
 
-  const clearAndRedirect = () => {
+  const clearLocalStorage = () => {
     localStorage.clear()
     setSavedMovies([])
     setError('')
     setCurrentUser(notLoginedUser)
-    history.push('/')
   }
 
   const handleLogout = () => mainApi.signOut()
-    .then(() => clearAndRedirect())
+    .then(() => {
+      clearLocalStorage()
+      history.push('/')
+    })
     .catch(err => setError(err.message))
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      {currentUser &&
-        <div className="app">
-          <Switch>
-            <Route exact path="/" component={Main} />
-            <ProtectedRoute path="/movies" component={Movies} savedMovies={savedMovies}
-              onMovieCardBtnClick={handleMovieCardBurronClick} mainError={error} />
-            <ProtectedRoute path="/saved-movies" component={SavedMovies} savedMovies={savedMovies}
-              onMovieCardBtnClick={handleMovieCardBurronClick} mainError={error} />
-            <ProtectedRoute path="/profile" component={Profile}
-              onProfileUpdate={handleChangeUser} onLogOut={handleLogout}
-              mainError={error} handleError={handleError} />
+      <div className="app">
+        <Switch>
+          <Route exact path="/" component={Main} />
 
-            <Route path="/signup">
-              {currentUser.loggedIn ? <Redirect to="/" /> : <Register onRegister={handleChangeUser} />}
-            </Route>
-            <Route path="/signin">
-              {currentUser.loggedIn ? <Redirect to="/" /> : <Login onLogin={handleChangeUser} />}
-            </Route>
+          <ProtectedRoute path="/movies" component={Movies} savedMovies={savedMovies}
+            onMovieCardBtnClick={handleMovieCardButtonClick} mainError={error} />
 
-            <ProtectedRoute path="/" component={Page404} />
+          <ProtectedRoute path="/saved-movies" component={SavedMovies} savedMovies={savedMovies}
+            onMovieCardBtnClick={handleMovieCardButtonClick} mainError={error} />
 
-          </Switch>
-        </div >
-      }
+          <ProtectedRoute path="/profile" component={Profile}
+            onProfileUpdate={handleChangeUser} onLogOut={handleLogout}
+            mainError={error} handleError={handleError} />
+
+          <Route path="/signup">
+            {currentUser && currentUser.loggedIn
+              ? <Redirect to="/" />
+              : <Register onRegister={handleChangeUser} />}
+          </Route>
+
+          <Route path="/signin">
+            {currentUser && currentUser.loggedIn
+              ? <Redirect to="/" />
+              : <Login onLogin={handleChangeUser} />}
+          </Route>
+
+          <ProtectedRoute path="/" component={Page404} />
+        </Switch>
+      </div >
     </CurrentUserContext.Provider >
   );
 }

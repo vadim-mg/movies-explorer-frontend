@@ -11,6 +11,7 @@ function Profile({ onProfileUpdate, onLogOut, mainError, handleError }) {
   const currentUser = useContext(CurrentUserContext)
   const [values, setValues] = useState(currentUser)
   const [isEditMode, setIsEditMode] = useState(false)
+  const [sucessfullMessage, setSucessfullMessage] = useState(null)
 
   useEffect(() => {
     setValues(currentUser)
@@ -25,8 +26,8 @@ function Profile({ onProfileUpdate, onLogOut, mainError, handleError }) {
       name: userData.name
     })
       .then(res => {
-        // setIsEditMode(false)
         onProfileUpdate({ ...res, 'loggedIn': true }, '/profile')
+        setSucessfullMessage('Данные профиля сохранены успешно!')
       })
       .catch(err => {
         setIsEditMode(true)
@@ -40,9 +41,10 @@ function Profile({ onProfileUpdate, onLogOut, mainError, handleError }) {
 
   const handleToggleEditMode = () => {
     if (isEditMode) {
-      //сброс для кнопки "вернуться"
       setValues({ name: '', email: '' })
       setTimeout(() => setValues(currentUser), 1)
+    }else{
+      setSucessfullMessage('')
     }
     setIsEditMode(!isEditMode)
   }
@@ -77,6 +79,8 @@ function Profile({ onProfileUpdate, onLogOut, mainError, handleError }) {
             title: 'Поле Email должно быть заполнено корректно.',
           },
         ]}>
+
+        {sucessfullMessage !== '' ? <p className="profile__sucessfull-message">{sucessfullMessage}</p> : ''}
 
         <div className="profile__links">
           <button type="button" className="profile__link" onClick={handleToggleEditMode}>{!isEditMode ? 'Редактировать' : 'Вернуться'}</button>
